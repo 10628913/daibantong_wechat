@@ -1,0 +1,198 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Cid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+
+            <select id="c-cid" data-rule="required" class="form-control selectpicker" name="row[cid]">
+                {foreach name="cidList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.cid" }selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('post_type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="checkbox">
+                {foreach name="typelist" item="vo"}
+                <label for="row[post_type][]-{$key}"><input id="row[post_type][]-{$key}" name="row[post_type][]"
+                        type="checkbox" value="{$key}" {in name="key" value="$row.post_type" }checked{/in} />
+                    {$vo}</label>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Site')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-site" data-rule="required" class="form-control selectpicker" name="row[site]">
+                {foreach name="sites" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.site" }selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Title')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-title" class="form-control" name="row[title]" type="text" value="{$row.title|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Content')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-content" class="form-control editor" rows="5" name="row[content]"
+                cols="50">{$row.content|htmlentities}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Images')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-images" class="form-control" size="50" name="row[images]" type="textarea"
+                    value="{$row.images|htmlentities}">
+                <div class="input-group-addon no-border no-padding">
+                    <span><button type="button" id="faupload-images" class="btn btn-danger faupload"
+                            data-input-id="c-images"
+                            data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp,image/webp"
+                            data-multiple="true" data-preview-id="p-images"><i class="fa fa-upload"></i>
+                            {:__('Upload')}</button></span>
+                    <span><button type="button" id="fachoose-images" class="btn btn-primary fachoose"
+                            data-input-id="c-images" data-mimetype="image/*" data-multiple="true"><i
+                                class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-images"></span>
+            </div>
+            <ul class="row list-inline faupload-preview" id="p-images"></ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Attach_files')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-attach_files" class="form-control" size="50" name="row[attach_files]" type="text"
+                    value="{$row.attach_files|htmlentities}">
+                <div class="input-group-addon no-border no-padding">
+                    <span><button type="button" id="faupload-attach_files" class="btn btn-danger faupload"
+                            data-input-id="c-attach_files" data-multiple="true" data-preview-id="p-attach_files"><i
+                                class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <span><button type="button" id="fachoose-attach_files" class="btn btn-primary fachoose"
+                            data-input-id="c-attach_files" data-multiple="true"><i class="fa fa-list"></i>
+                            {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-attach_files"></span>
+            </div>
+            <ul class="row list-inline faupload-preview" id="p-attach_files"></ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Is_recommend')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="checkbox">
+                {foreach name="isRecommendList" item="vo"}
+                <label for="row[is_recommend]-{$key}"><input id="row[is_recommend]-{$key}" name="row[is_recommend]" type="radio"
+                        value="{$key}" {in name="key" value="$row.is_recommend" }checked{/in} /> {$vo}</label>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Recommend_start_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-recommend_start_time" class="form-control datetimepicker"
+                data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[recommend_start_time]"
+                type="text" value="{:$row.recommend_start_time?datetime($row.recommend_start_time):''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Recommend_end_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-recommend_end_time" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss"
+                data-use-current="true" name="row[recommend_end_time]" type="text"
+                value="{:$row.recommend_end_time?datetime($row.recommend_end_time):''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Is_top')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="checkbox">
+                {foreach name="isTopList" item="vo"}
+                <label for="row[is_top]-{$key}"><input id="row[is_top]-{$key}" name="row[is_top]" type="radio"
+                        value="{$key}" {in name="key" value="$row.is_top" }checked{/in} /> {$vo}</label>
+                {/foreach}
+            </div>
+            <!-- <select  id="c-is_top" class="form-control selectpicker" name="row[is_top]">
+                
+                {foreach name="isTopList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.is_top"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select> -->
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Top_start_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-top_start_time" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss"
+                data-use-current="true" name="row[top_start_time]" type="text"
+                value="{:$row.top_start_time?datetime($row.top_start_time):''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Top_end_time')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-top_end_time" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss"
+                data-use-current="true" name="row[top_end_time]" type="text"
+                value="{:$row.top_end_time?datetime($row.top_end_time):''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Visibility_data')}:</label>
+        <div class="col-xs-12 col-sm-8">
+
+            <div class="checkbox">
+                {foreach name="visibilityDataList" item="vo"}
+                <label for="row[visibility_data][]-{$key}"><input id="row[visibility_data][]-{$key}"
+                        name="row[visibility_data][]" type="checkbox" value="{$key}" {in name="key"
+                        value="$row.visibility_data" }checked{/in} /> {$vo}</label>
+                {/foreach}
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Show_switch')}:</label>
+        <div class="col-xs-12 col-sm-8">
+
+            <input id="c-show_switch" name="row[show_switch]" type="hidden" value="{$row.show_switch}">
+            <a href="javascript:;" data-toggle="switcher" class="btn-switcher" data-input-id="c-show_switch"
+                data-yes="1" data-no="0">
+                <i class="fa fa-toggle-on text-success {eq name=" $row.show_switch" value="0" }fa-flip-horizontal
+                    text-gray{/eq} fa-2x"></i>
+            </a>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Like_num')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-like_num" class="form-control" name="row[like_num]" type="number"
+                value="{$row.like_num|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Comment_num')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-comment_num" class="form-control" name="row[comment_num]" type="number"
+                value="{$row.comment_num|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+        </div>
+    </div>
+</form>
