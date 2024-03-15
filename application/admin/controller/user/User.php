@@ -45,8 +45,8 @@ class User extends Backend
         $this->view->assign('sites', $siteList);
         $this->assignconfig('siteObj',json_decode(json_encode($siteList)));
 
-        if ($this->auth->site && $this->auth->site > 0) {
-            $this->siteWhere = ['site' => $this->auth->area_id];
+        if ($this->auth->site) {
+            $this->siteWhere = ['site' => $this->auth->site];
         }
     }
 
@@ -199,6 +199,7 @@ class User extends Backend
             $before = $row['amount'];
             $result = $row->allowField(true)->save($data);
             $recordData = [
+                'title' => '管理员充值',
                 'user_id' => $row['id'],
                 'admin_id' => $this->auth->id,
                 'money' => $params['money'],
@@ -206,7 +207,8 @@ class User extends Backend
                 'after' => $data['amount'],
                 'createtime' => time(),
                 'remark' => $params['remark'] ? : '',
-                'pay_result' => 1
+                'pay_result' => 1,
+                'site' => $row['site']
             ];
             Db::name('record_recharge')->insert($recordData);
             Db::commit();

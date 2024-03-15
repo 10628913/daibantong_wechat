@@ -93,7 +93,6 @@ $langSet == 'en' && $lang = array_combine(array_keys($lang), array_keys($lang));
 
     </div>
     <div class="buttons-container">
-        <a href="<?=$publicurl?>"><?=$lang['Home']?></a>
         <a href="javascript:" onclick="history.go(-1)"><?=$lang['Previous Page']?></a>
     </div>
 </div>

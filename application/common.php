@@ -4,6 +4,38 @@
 
 use think\exception\HttpResponseException;
 use think\Response;
+use think\Image as Image;
+
+if (!function_exists('thumb')) {
+    /**
+     * 裁剪图片
+     * @param string $name
+     * @param mixed  $options
+     * @param mixed  $selected
+     * @param mixed  $attr
+     * @return string
+     */
+    function thumb($url, $target_width = 300, $target_height = 300, $fixed = '')
+    {
+        $imgurl = str_replace("http://" . $_SERVER['HTTP_HOST'] . "/", '', $url);
+        if (!file_exists($imgurl)) {
+            return $url;
+        }
+        $image = Image::open($imgurl);
+        // $image->open('' . $imgurl . '');
+        $thumbPath = dirname($imgurl) . '/thumb_' . $target_width . '_' . $target_height . '_' . basename($imgurl);
+        if (file_exists($thumbPath)) {
+            return $thumbPath;
+        } else {
+            $result = $image->thumb($target_width, $target_height, \Think\Image::THUMB_SCALING)->save('' . $thumbPath . '');
+            if ($result) {
+                return $thumbPath;
+            } else {
+                return $url;
+            }
+        }
+    }
+}
 
 if (!function_exists('__')) {
 

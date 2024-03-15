@@ -25,14 +25,14 @@ class Posts extends Model
 
     // 追加属性
     protected $append = [
-        'cid_text',
-        'is_recommend_text',
-        'recommend_start_time_text',
-        'recommend_end_time_text',
-        'is_top_text',
-        'top_start_time_text',
-        'top_end_time_text',
-        'visibility_data_text'
+        // 'cid_text',
+        // 'is_recommend_text',
+        // 'recommend_start_time_text',
+        // 'recommend_end_time_text',
+        // 'is_top_text',
+        // 'top_start_time_text',
+        // 'top_end_time_text',
+        // 'visibility_data_text'
     ];
     
 
@@ -148,7 +148,7 @@ class Posts extends Model
     }
 
     public function user(){
-        return $this->hasOne('app\admin\model\User','id','user_id')->field('id,nickname');
+        return $this->hasOne('app\admin\model\User','id','user_id')->field('id,nickname,avatar,identity');
     }
 
 }

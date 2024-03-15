@@ -28,10 +28,15 @@ class Dashboard extends Backend
         } catch (\Exception $e) {
 
         }
+        $siteWhere = [];
+        if ($this->auth->site) {
+            $siteWhere = ['site' => $this->auth->site];
+        }
+
         $column = [];
         $starttime = Date::unixtime('day', -6);
         $endtime = Date::unixtime('day', 0, 'end');
-        $joinlist = Db("user")->where('jointime', 'between time', [$starttime, $endtime])
+        $joinlist = Db("user")->where('jointime', 'between time', [$starttime, $endtime])->where($siteWhere)
             ->field('jointime, status, COUNT(*) AS nums, DATE_FORMAT(FROM_UNIXTIME(jointime), "%Y-%m-%d") AS join_date')
             ->group('join_date')
             ->select();
@@ -54,16 +59,15 @@ class Dashboard extends Backend
             }
         }
         $this->view->assign([
-            'totaluser'         => User::count(),
+            'totaluser'         => User::where($siteWhere)->count(),
             // 'totaladdon'        => $totaladdon,
-            'totaladmin'        => Admin::count(),
             // 'totalcategory'     => \app\common\model\Category::count(),
-            'todayusersignup'   => User::whereTime('jointime', 'today')->count(),
-            'todayuserlogin'    => User::whereTime('logintime', 'today')->count(),
-            'sevendau'          => User::whereTime('jointime|logintime|prevtime', '-7 days')->count(),
-            'thirtydau'         => User::whereTime('jointime|logintime|prevtime', '-30 days')->count(),
-            'threednu'          => User::whereTime('jointime', '-3 days')->count(),
-            'sevendnu'          => User::whereTime('jointime', '-7 days')->count(),
+            'todayusersignup'   => User::where($siteWhere)->whereTime('jointime', 'today')->count(),
+            'todayuserlogin'    => User::where($siteWhere)->whereTime('logintime', 'today')->count(),
+            'sevendau'          => User::where($siteWhere)->whereTime('jointime|logintime|prevtime', '-7 days')->count(),
+            'thirtydau'         => User::where($siteWhere)->whereTime('jointime|logintime|prevtime', '-30 days')->count(),
+            'threednu'          => User::where($siteWhere)->whereTime('jointime', '-3 days')->count(),
+            'sevendnu'          => User::where($siteWhere)->whereTime('jointime', '-7 days')->count(),
             'dbtablenums'       => count($dbTableList),
             'dbsize'            => array_sum(array_map(function ($item) {
                 return $item['Data_length'] + $item['Index_length'];
@@ -74,11 +78,11 @@ class Dashboard extends Backend
             // 'picturenums'       => Attachment::where('mimetype', 'like', 'image/%')->count(),
             // 'picturesize'       => Attachment::where('mimetype', 'like', 'image/%')->sum('filesize'),
             //总充值金额
-            'total_recharge' => Db::name('record_recharge')->sum('money'),
+            'total_recharge' => Db::name('record_recharge')->where($siteWhere)->sum('money'),
             //总查询金额
-            'total_search_money' => Db::name('record_search')->sum('money'),
+            'total_search_money' => Db::name('record_search')->where($siteWhere)->sum('money'),
             //总查询记录数
-            'total_search_count' => Db::name('record_search')->count(),
+            'total_search_count' => Db::name('record_search')->where($siteWhere)->count(),
             //涉诉记录数
             'total_shesu_count' => Db::name('record_shesu')->count(),
             //涉诉记录Api请求数

@@ -68,7 +68,7 @@ return [
     'End time'                                       => '结束时间',
     'Create time'                                    => '创建时间',
     'Flag'                                           => '标志',
-    'Please login first'                             => '请登录后操作',
+    'Please login first'                             => '',
     'Uploaded successful'                            => '上传成功',
     'You can upload up to %d file%s'                 => '你最多还可以上传%d个文件',
     'You can choose up to %d file%s'                 => '你最多还可以选择%d个文件',

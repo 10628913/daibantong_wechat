@@ -132,6 +132,19 @@ class Admin extends Backend
             $this->token();
             $params = $this->request->post("row/a");
             if ($params) {
+                $siteDb = Db::name('city_site');
+                if(is_numeric($params['site'])){
+                    $site = $siteDb->where(['id'=>$params['site']])->find();
+                    if(!$site){
+                        $this->error('站点不存在!');
+                    }
+                    if($site['admin_id']){
+                        $this->error('该站点下已有站长,操作失败!');
+                    }
+                }else{
+                    $params['site'] = -1;
+                }
+
                 Db::startTrans();
                 try {
                     if (!Validate::is($params['password'], '\S{6,30}')) {
@@ -157,6 +170,10 @@ class Admin extends Backend
                         $dataset[] = ['uid' => $this->model->id, 'group_id' => $value];
                     }
                     model('AuthGroupAccess')->saveAll($dataset);
+
+                    if(is_numeric($params['site']) && $params['site'] > 0){
+                        $siteDb->where('id',$params['site'])->update(['admin_id'=>$this->model->id]);
+                    }
                     Db::commit();
                 } catch (\Exception $e) {
                     Db::rollback();
@@ -185,6 +202,20 @@ class Admin extends Backend
             $this->token();
             $params = $this->request->post("row/a");
             if ($params) {
+                $isChange = 0;
+                $siteId = $row['site'];
+                $siteDb = Db::name('city_site');
+                if($params['site'] != $row['site']){
+                    $site = $siteDb->where(['id'=>$params['site']])->find();
+                    if(!$site){
+                        $this->error('站点不存在!');
+                    }
+                    if($site['admin_id']){
+                        $this->error('该站点下已有站长,操作失败!');
+                    }
+                    $isChange = 1;
+                }
+
                 Db::startTrans();
                 try {
                     if ($params['password']) {
@@ -200,8 +231,8 @@ class Admin extends Backend
                     $adminValidate = \think\Loader::validate('Admin');
                     $adminValidate->rule([
                         'username' => 'require|regex:\w{3,30}|unique:admin,username,' . $row->id,
-                        'email'    => 'require|email|unique:admin,email,' . $row->id,
-                        'mobile'   => 'regex:1[3-9]\d{9}|unique:admin,mobile,' . $row->id,
+                        // 'email'    => 'require|email|unique:admin,email,' . $row->id,
+                        // 'mobile'   => 'regex:1[3-9]\d{9}|unique:admin,mobile,' . $row->id,
                         'password' => 'regex:\S{32}',
                     ]);
                     $result = $row->validate('Admin.edit')->save($params);
@@ -225,6 +256,10 @@ class Admin extends Backend
                         $dataset[] = ['uid' => $row->id, 'group_id' => $value];
                     }
                     model('AuthGroupAccess')->saveAll($dataset);
+                    if($isChange){
+                        $siteDb->where('id',$siteId)->update(['admin_id'=>0]);
+                        $siteDb->where('id',$params['site'])->update(['admin_id'=>$row->id]);
+                    }
                     Db::commit();
                 } catch (\Exception $e) {
                     Db::rollback();

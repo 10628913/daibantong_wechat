@@ -57,6 +57,7 @@ class Index extends Backend
         $this->view->assign('fixedmenu', $fixedmenu);
         $this->view->assign('referermenu', $referermenu);
         $this->view->assign('title', __('Home'));
+        $this->view->assign('site_name', $this->auth->site_name);
         return $this->view->fetch();
     }
 

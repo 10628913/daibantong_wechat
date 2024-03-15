@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2024-03-01 22:21:37
+Date: 2024-03-15 16:55:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,17 +35,19 @@ CREATE TABLE `fa_admin` (
   `updatetime` bigint(16) DEFAULT NULL COMMENT '更新时间',
   `token` varchar(59) DEFAULT '' COMMENT 'Session标识',
   `status` varchar(30) NOT NULL DEFAULT 'normal' COMMENT '状态',
-  `site` int(11) DEFAULT NULL COMMENT '所属城市',
+  `site` int(11) DEFAULT '-1' COMMENT '管理站点',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`) USING BTREE,
   KEY `site` (`site`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='管理员表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='管理员表';
 
 -- ----------------------------
 -- Records of fa_admin
 -- ----------------------------
-INSERT INTO `fa_admin` VALUES ('1', 'admin', 'Admin', '08f70eab37ac32cae096330d199c42ff', 'e8469f', 'http://localhost/assets/img/avatar.png', 'admin@admin.com', '', '0', '1709300426', '0.0.0.0', '1491635035', '1709300426', '543f3fbe-1c07-4299-b8f0-0eb9fe79b383', 'normal', '0');
-INSERT INTO `fa_admin` VALUES ('2', 'weifang', '潍坊管理员', '8c2080848a5e22dee70c5a709d93da74', 'Av8ufD', '/assets/img/avatar.png', 'weifang@qq.com', '13333333333', '0', null, null, '1708501434', '1709300523', '', 'normal', '5');
+INSERT INTO `fa_admin` VALUES ('1', 'admin', 'Admin', '08f70eab37ac32cae096330d199c42ff', 'e8469f', 'http://localhost/assets/img/avatar.png', 'admin@admin.com', '', '0', '1710343548', '0.0.0.0', '1491635035', '1710343548', 'c0292dd7-ff9a-4a8a-81c9-4959b2e8300a', 'normal', '0');
+INSERT INTO `fa_admin` VALUES ('2', 'weifang', '潍坊管理员', '8c2080848a5e22dee70c5a709d93da74', 'Av8ufD', '/assets/img/avatar.png', 'weifang@qq.com', '13333333333', '0', '1709705848', '0.0.0.0', '1708501434', '1709712047', '', 'normal', '5');
+INSERT INTO `fa_admin` VALUES ('3', 'zibo', '淄博', 'f2e8e2cf9d30d79526bb67d6715fd961', 'sf1Fjt', '/assets/img/avatar.png', 'zibo@163.com', '13522222222', '0', null, null, '1709627131', '1709627207', '', 'normal', '-1');
+INSERT INTO `fa_admin` VALUES ('4', 'jinan', '济南', 'd23cdf810161c1f3ac1000b594fbf2f5', 'ghLwXy', '/assets/img/avatar.png', 'jinan@163.com', '13522222221', '0', null, null, '1709628622', '1709628622', '', 'normal', '4');
 
 -- ----------------------------
 -- Table structure for `fa_admin_log`
@@ -63,7 +65,7 @@ CREATE TABLE `fa_admin_log` (
   `createtime` bigint(16) DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`id`),
   KEY `name` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=263 DEFAULT CHARSET=utf8mb4 COMMENT='管理员日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=323 DEFAULT CHARSET=utf8mb4 COMMENT='管理员日志表';
 
 -- ----------------------------
 -- Records of fa_admin_log
@@ -329,6 +331,66 @@ INSERT INTO `fa_admin_log` VALUES ('259', '0', 'Unknown', '/manager.php/index/lo
 INSERT INTO `fa_admin_log` VALUES ('260', '1', 'admin', '/manager.php/index/login', '登录', '{\"__token__\":\"***\",\"username\":\"admin\",\"password\":\"***\",\"captcha\":\"pvsu\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709300426');
 INSERT INTO `fa_admin_log` VALUES ('261', '1', 'admin', '/manager.php/auth/admin/edit/ids/2?dialog=1', '权限管理 / 管理员管理 / 编辑', '{\"dialog\":\"1\",\"__token__\":\"***\",\"group\":[\"2\",\"3\"],\"row\":{\"site\":\"4\",\"username\":\"weifang\",\"email\":\"weifang@qq.com\",\"mobile\":\"13333333333\",\"nickname\":\"潍坊管理员\",\"password\":\"***\",\"loginfailure\":\"0\",\"status\":\"normal\"},\"ids\":\"2\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709300519');
 INSERT INTO `fa_admin_log` VALUES ('262', '1', 'admin', '/manager.php/auth/admin/edit/ids/2?dialog=1', '权限管理 / 管理员管理 / 编辑', '{\"dialog\":\"1\",\"__token__\":\"***\",\"group\":[\"2\",\"3\"],\"row\":{\"site\":\"5\",\"username\":\"weifang\",\"email\":\"weifang@qq.com\",\"mobile\":\"13333333333\",\"nickname\":\"潍坊管理员\",\"password\":\"***\",\"loginfailure\":\"0\",\"status\":\"normal\"},\"ids\":\"2\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709300523');
+INSERT INTO `fa_admin_log` VALUES ('263', '1', 'admin', '/manager.php/index/login', '登录', '{\"__token__\":\"***\",\"username\":\"admin\",\"password\":\"***\",\"captcha\":\"axs8\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709545563');
+INSERT INTO `fa_admin_log` VALUES ('264', '0', 'Unknown', '/manager.php/index/logout', '', '{\"__token__\":\"***\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709548986');
+INSERT INTO `fa_admin_log` VALUES ('265', '0', 'Unknown', '/manager.php/index/login', '', '{\"__token__\":\"***\",\"username\":\"admin\",\"password\":\"***\",\"captcha\":\"c2ye\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709549080');
+INSERT INTO `fa_admin_log` VALUES ('266', '1', 'admin', '/manager.php/index/login', '登录', '{\"__token__\":\"***\",\"username\":\"admin\",\"password\":\"***\",\"captcha\":\"yhaa\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709549085');
+INSERT INTO `fa_admin_log` VALUES ('267', '1', 'admin', '/manager.php/notice/add?dialog=1', '公告管理 / 添加', '{\"dialog\":\"1\",\"row\":{\"content\":\"1212121\",\"show_switch\":\"1\"}}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709549443');
+INSERT INTO `fa_admin_log` VALUES ('268', '1', 'admin', '/manager.php/notice/add?dialog=1', '公告管理 / 添加', '{\"dialog\":\"1\",\"row\":{\"content\":\"12121212\",\"show_switch\":\"1\"}}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709549534');
+INSERT INTO `fa_admin_log` VALUES ('269', '1', 'admin', '/manager.php/notice/multi', '公告管理 / 批量更新', '{\"action\":\"\",\"ids\":\"2\",\"params\":\"show_switch=0\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709549597');
+INSERT INTO `fa_admin_log` VALUES ('270', '1', 'admin', '/manager.php/notice/edit/ids/2?dialog=1', '公告管理 / 编辑', '{\"dialog\":\"1\",\"row\":{\"content\":\"12121212\",\"show_switch\":\"1\"},\"ids\":\"2\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709549600');
+INSERT INTO `fa_admin_log` VALUES ('271', '1', 'admin', '/manager.php/notice/add?dialog=1', '公告管理 / 添加', '{\"dialog\":\"1\",\"row\":{\"content\":\"32323\",\"show_switch\":\"1\"}}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709549605');
+INSERT INTO `fa_admin_log` VALUES ('272', '1', 'admin', '/manager.php/ajax/upload', '', '{\"category\":\"\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709550926');
+INSERT INTO `fa_admin_log` VALUES ('273', '1', 'admin', '/manager.php/adv/add?dialog=1', '广告管理 / 添加', '{\"dialog\":\"1\",\"row\":{\"pos\":\"1\",\"adv_image\":\"\\/uploads\\/20240304\\/c48c5e9a940d871cda065a371281e29e.png\",\"adv_url\":\"111\",\"show_switch\":\"1\"}}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709550927');
+INSERT INTO `fa_admin_log` VALUES ('274', '1', 'admin', '/manager.php/ajax/upload', '', '{\"category\":\"\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709550934');
+INSERT INTO `fa_admin_log` VALUES ('275', '1', 'admin', '/manager.php/adv/add?dialog=1', '广告管理 / 添加', '{\"dialog\":\"1\",\"row\":{\"pos\":\"1\",\"adv_image\":\"\\/uploads\\/20240304\\/598d46973f0b539853bf7e08dba23b98.png\",\"adv_url\":\"111\",\"show_switch\":\"1\"}}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709550937');
+INSERT INTO `fa_admin_log` VALUES ('276', '1', 'admin', '/manager.php/adv/add?dialog=1', '广告管理 / 添加', '{\"dialog\":\"1\",\"row\":{\"pos\":\"2\",\"adv_image\":\"\\/uploads\\/20240304\\/598d46973f0b539853bf7e08dba23b98.png\",\"adv_url\":\"111\",\"show_switch\":\"1\"}}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709550941');
+INSERT INTO `fa_admin_log` VALUES ('277', '0', 'Unknown', '/manager.php/index/logout', '', '{\"__token__\":\"***\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709622153');
+INSERT INTO `fa_admin_log` VALUES ('278', '1', 'admin', '/manager.php/index/login', '登录', '{\"__token__\":\"***\",\"username\":\"admin\",\"password\":\"***\",\"captcha\":\"cwfw\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709622158');
+INSERT INTO `fa_admin_log` VALUES ('279', '1', 'admin', '/manager.php/site/edit/ids/5?dialog=1', '站点城市管理 / 编辑', '{\"dialog\":\"1\",\"row\":{\"name\":\"潍坊\",\"admin_id\":\"2\",\"weigh\":\"5\",\"show_switch\":\"1\"},\"ids\":\"5\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709622816');
+INSERT INTO `fa_admin_log` VALUES ('280', '1', 'admin', '/manager.php/auth/admin/add?dialog=1', '权限管理 / 管理员管理 / 添加', '{\"dialog\":\"1\",\"__token__\":\"***\",\"group\":[\"1\",\"2\"],\"row\":{\"site\":\"0\",\"username\":\"zibo\",\"email\":\"zibo@163.com\",\"mobile\":\"13522222222\",\"nickname\":\"淄博\",\"password\":\"***\",\"status\":\"normal\"}}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709627131');
+INSERT INTO `fa_admin_log` VALUES ('281', '1', 'admin', '/manager.php/auth/admin/edit/ids/3?dialog=1', '权限管理 / 管理员管理 / 编辑', '{\"dialog\":\"1\",\"__token__\":\"***\",\"group\":[\"1\",\"2\"],\"row\":{\"site\":\"5\",\"username\":\"zibo\",\"email\":\"zibo@163.com\",\"mobile\":\"13522222222\",\"nickname\":\"淄博\",\"password\":\"***\",\"loginfailure\":\"0\",\"status\":\"normal\"},\"ids\":\"3\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709627138');
+INSERT INTO `fa_admin_log` VALUES ('282', '1', 'admin', '/manager.php/auth/admin/edit/ids/3?dialog=1', '权限管理 / 管理员管理 / 编辑', '{\"dialog\":\"1\",\"__token__\":\"***\",\"group\":[\"1\",\"2\"],\"row\":{\"site\":\"4\",\"username\":\"zibo\",\"email\":\"zibo@163.com\",\"mobile\":\"13522222222\",\"nickname\":\"淄博\",\"password\":\"***\",\"loginfailure\":\"0\",\"status\":\"normal\"},\"ids\":\"3\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709627142');
+INSERT INTO `fa_admin_log` VALUES ('283', '1', 'admin', '/manager.php/auth/admin/edit/ids/3?dialog=1', '权限管理 / 管理员管理 / 编辑', '{\"dialog\":\"1\",\"__token__\":\"***\",\"group\":[\"1\",\"2\"],\"row\":{\"site\":\"4\",\"username\":\"zibo\",\"email\":\"zibo@163.com\",\"mobile\":\"13522222222\",\"nickname\":\"淄博\",\"password\":\"***\",\"loginfailure\":\"0\",\"status\":\"normal\"},\"ids\":\"3\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709627161');
+INSERT INTO `fa_admin_log` VALUES ('284', '1', 'admin', '/manager.php/auth/admin/edit/ids/3?dialog=1', '权限管理 / 管理员管理 / 编辑', '{\"dialog\":\"1\",\"__token__\":\"***\",\"group\":[\"1\",\"2\"],\"row\":{\"site\":\"4\",\"username\":\"zibo\",\"email\":\"zibo@163.com\",\"mobile\":\"13522222222\",\"nickname\":\"淄博\",\"password\":\"***\",\"loginfailure\":\"0\",\"status\":\"normal\"},\"ids\":\"3\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709627207');
+INSERT INTO `fa_admin_log` VALUES ('285', '1', 'admin', '/manager.php/site/edit/ids/4?dialog=1', '站点城市管理 / 编辑', '{\"dialog\":\"1\",\"row\":{\"name\":\"淄博\",\"admin_id\":\"2\",\"weigh\":\"4\",\"show_switch\":\"1\"},\"ids\":\"4\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709628593');
+INSERT INTO `fa_admin_log` VALUES ('286', '1', 'admin', '/manager.php/auth/admin/add?dialog=1', '权限管理 / 管理员管理 / 添加', '{\"dialog\":\"1\",\"__token__\":\"***\",\"group\":[\"1\"],\"row\":{\"site\":\"0\",\"username\":\"jinan\",\"email\":\"jinan@163.com\",\"mobile\":\"13522222221\",\"nickname\":\"济南\",\"password\":\"***\",\"status\":\"normal\"}}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709628623');
+INSERT INTO `fa_admin_log` VALUES ('287', '1', 'admin', '/manager.php/site/edit/ids/4?dialog=1', '站点城市管理 / 编辑', '{\"dialog\":\"1\",\"row\":{\"name\":\"淄博\",\"admin_id\":\"4\",\"weigh\":\"4\",\"show_switch\":\"1\"},\"ids\":\"4\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709628949');
+INSERT INTO `fa_admin_log` VALUES ('288', '1', 'admin', '/manager.php/site/edit/ids/4?dialog=1', '站点城市管理 / 编辑', '{\"dialog\":\"1\",\"row\":{\"name\":\"淄博\",\"admin_id\":\"4\",\"weigh\":\"4\",\"show_switch\":\"1\"},\"ids\":\"4\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709628957');
+INSERT INTO `fa_admin_log` VALUES ('289', '1', 'admin', '/manager.php/site/edit/ids/4?dialog=1', '站点城市管理 / 编辑', '{\"dialog\":\"1\",\"row\":{\"name\":\"淄博\",\"admin_id\":\"4\",\"weigh\":\"4\",\"show_switch\":\"1\"},\"ids\":\"4\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709628985');
+INSERT INTO `fa_admin_log` VALUES ('290', '1', 'admin', '/manager.php/site/edit/ids/4?dialog=1', '站点城市管理 / 编辑', '{\"dialog\":\"1\",\"row\":{\"name\":\"淄博\",\"admin_id\":\"4\",\"weigh\":\"4\",\"show_switch\":\"1\"},\"ids\":\"4\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709628994');
+INSERT INTO `fa_admin_log` VALUES ('291', '1', 'admin', '/manager.php/site/edit/ids/4?dialog=1', '站点城市管理 / 编辑', '{\"dialog\":\"1\",\"row\":{\"name\":\"淄博\",\"admin_id\":\"4\",\"weigh\":\"4\",\"show_switch\":\"1\"},\"ids\":\"4\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709629026');
+INSERT INTO `fa_admin_log` VALUES ('292', '1', 'admin', '/manager.php/general/config/check', '常规管理 / 系统配置', '{\"row\":{\"name\":\"commission_rate\"}}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709629678');
+INSERT INTO `fa_admin_log` VALUES ('293', '1', 'admin', '/manager.php/general.config/add', '常规管理 / 系统配置 / 添加', '{\"__token__\":\"***\",\"row\":{\"group\":\"search_money\",\"type\":\"number\",\"name\":\"commission_rate\",\"title\":\"佣金比例(%)\",\"setting\":{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"},\"value\":\"0\",\"content\":\"value1|title1\\r\\nvalue2|title2\",\"tip\":\"\",\"rule\":\"digits\",\"visible\":\"\",\"extend\":\"\"}}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709629701');
+INSERT INTO `fa_admin_log` VALUES ('294', '0', 'Unknown', '/manager.php/index/logout', '', '{\"__token__\":\"***\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709705840');
+INSERT INTO `fa_admin_log` VALUES ('295', '2', 'weifang', '/manager.php/index/login', '登录', '{\"__token__\":\"***\",\"username\":\"weifang\",\"password\":\"***\",\"captcha\":\"b2iw\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709705848');
+INSERT INTO `fa_admin_log` VALUES ('296', '0', 'Unknown', '/manager.php/index/logout', '', '{\"__token__\":\"***\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709712048');
+INSERT INTO `fa_admin_log` VALUES ('297', '1', 'admin', '/manager.php/index/login', '登录', '{\"__token__\":\"***\",\"username\":\"admin\",\"password\":\"***\",\"captcha\":\"aubx\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709712054');
+INSERT INTO `fa_admin_log` VALUES ('298', '1', 'admin', '/manager.php/general/config/check', '常规管理 / 系统配置', '{\"row\":{\"name\":\"post_top_money\"}}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709883834');
+INSERT INTO `fa_admin_log` VALUES ('299', '1', 'admin', '/manager.php/general.config/add', '常规管理 / 系统配置 / 添加', '{\"__token__\":\"***\",\"row\":{\"group\":\"search_money\",\"type\":\"number\",\"name\":\"post_top_money\",\"title\":\"帖子置顶费用\",\"setting\":{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"},\"value\":\"10\",\"content\":\"value1|title1\\r\\nvalue2|title2\",\"tip\":\"\",\"rule\":\"\",\"visible\":\"\",\"extend\":\"\"}}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709883853');
+INSERT INTO `fa_admin_log` VALUES ('300', '1', 'admin', '/manager.php/general/config/check', '常规管理 / 系统配置', '{\"row\":{\"name\":\"post_recommand_money\"}}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709883876');
+INSERT INTO `fa_admin_log` VALUES ('301', '1', 'admin', '/manager.php/general.config/add', '常规管理 / 系统配置 / 添加', '{\"__token__\":\"***\",\"row\":{\"group\":\"search_money\",\"type\":\"number\",\"name\":\"post_recommand_money\",\"title\":\"帖子推荐费用\",\"setting\":{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"},\"value\":\"10\",\"content\":\"value1|title1\\r\\nvalue2|title2\",\"tip\":\"\",\"rule\":\"\",\"visible\":\"\",\"extend\":\"\"}}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1709883887');
+INSERT INTO `fa_admin_log` VALUES ('302', '1', 'admin', '/manager.php/index/login?url=%2Fmanager.php%2Fdashboard%3Fref%3Daddtabs', '登录', '{\"url\":\"\\/manager.php\\/dashboard?ref=addtabs\",\"__token__\":\"***\",\"username\":\"admin\",\"password\":\"***\",\"captcha\":\"tvn2\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710124275');
+INSERT INTO `fa_admin_log` VALUES ('303', '1', 'admin', '/manager.php/addon/install', '插件管理', '{\"name\":\"cropper\",\"force\":\"0\",\"uid\":\"41989\",\"token\":\"***\",\"version\":\"1.1.2\",\"faversion\":\"1.4.0.20230711\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710150971');
+INSERT INTO `fa_admin_log` VALUES ('304', '1', 'admin', '/manager.php/addon/state', '插件管理 / 禁用启用', '{\"name\":\"cropper\",\"action\":\"enable\",\"force\":\"0\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710150972');
+INSERT INTO `fa_admin_log` VALUES ('305', '1', 'admin', '/manager.php/addon/state', '插件管理 / 禁用启用', '{\"name\":\"example\",\"action\":\"disable\",\"force\":\"0\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710151197');
+INSERT INTO `fa_admin_log` VALUES ('306', '1', 'admin', '/manager.php/addon/get_table_list', '插件管理', '{\"name\":\"example\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710151199');
+INSERT INTO `fa_admin_log` VALUES ('307', '1', 'admin', '/manager.php/addon/uninstall', '插件管理', '{\"name\":\"example\",\"force\":\"0\",\"droptables\":\"1\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710151200');
+INSERT INTO `fa_admin_log` VALUES ('308', '0', 'Unknown', '/manager.php/index/logout', '', '{\"__token__\":\"***\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710236163');
+INSERT INTO `fa_admin_log` VALUES ('309', '0', 'Unknown', '/manager.php/index/login', '', '{\"__token__\":\"***\",\"username\":\"admin\",\"password\":\"***\",\"captcha\":\"pd40\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710236169');
+INSERT INTO `fa_admin_log` VALUES ('310', '1', 'admin', '/manager.php/index/login', '登录', '{\"__token__\":\"***\",\"username\":\"admin\",\"password\":\"***\",\"captcha\":\"n6mw\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710236175');
+INSERT INTO `fa_admin_log` VALUES ('311', '0', 'Unknown', '/manager.php/index/logout', '', '{\"__token__\":\"***\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710242004');
+INSERT INTO `fa_admin_log` VALUES ('312', '0', 'Unknown', '/manager.php/index/login?url=%2Fmanager.php%2Fdashboard%3Fref%3Daddtabs', '', '{\"url\":\"\\/manager.php\\/dashboard?ref=addtabs\",\"__token__\":\"***\",\"username\":\"admin\",\"password\":\"***\",\"captcha\":\"1222\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710242107');
+INSERT INTO `fa_admin_log` VALUES ('313', '0', 'Unknown', '/manager.php/index/login?url=%2Fmanager.php%2Fdashboard%3Fref%3Daddtabs', '登录', '{\"url\":\"\\/manager.php\\/dashboard?ref=addtabs\",\"__token__\":\"***\",\"username\":\"admin\",\"password\":\"***\",\"captcha\":\"lrhs\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710242112');
+INSERT INTO `fa_admin_log` VALUES ('314', '1', 'admin', '/manager.php/index/login?url=%2Fmanager.php%2Fdashboard%3Fref%3Daddtabs', '登录', '{\"url\":\"\\/manager.php\\/dashboard?ref=addtabs\",\"__token__\":\"***\",\"username\":\"admin\",\"password\":\"***\",\"captcha\":\"tjnw\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710343548');
+INSERT INTO `fa_admin_log` VALUES ('315', '1', 'admin', '/manager.php/user/usercheck/audit/ids/1?dialog=1', '会员管理 / 用户认证管理 / 审核', '{\"dialog\":\"1\",\"selectPage\":\"1\",\"row\":{\"audit_result\":\"1\",\"audit_remark\":\"\"},\"ids\":\"1\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710343559');
+INSERT INTO `fa_admin_log` VALUES ('316', '1', 'admin', '/manager.php/user/usercheck/audit/ids/1?dialog=1', '会员管理 / 用户认证管理 / 审核', '{\"dialog\":\"1\",\"selectPage\":\"1\",\"row\":{\"audit_result\":\"1\",\"audit_remark\":\"\"},\"ids\":\"1\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710343709');
+INSERT INTO `fa_admin_log` VALUES ('317', '1', 'admin', '/manager.php/user/usercheck/audit/ids/1?dialog=1', '会员管理 / 用户认证管理 / 审核', '{\"dialog\":\"1\",\"selectPage\":\"1\",\"row\":{\"audit_result\":\"1\",\"audit_remark\":\"\"},\"ids\":\"1\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710343736');
+INSERT INTO `fa_admin_log` VALUES ('318', '1', 'admin', '/manager.php/user/usercheck/audit/ids/1?dialog=1', '会员管理 / 用户认证管理 / 审核', '{\"dialog\":\"1\",\"selectPage\":\"1\",\"row\":{\"audit_result\":\"1\",\"audit_remark\":\"\"},\"ids\":\"1\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710343746');
+INSERT INTO `fa_admin_log` VALUES ('319', '1', 'admin', '/manager.php/user/usercheck/audit/ids/1?dialog=1', '会员管理 / 用户认证管理 / 审核', '{\"dialog\":\"1\",\"selectPage\":\"1\",\"row\":{\"audit_result\":\"1\",\"audit_remark\":\"\"},\"ids\":\"1\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710343833');
+INSERT INTO `fa_admin_log` VALUES ('320', '1', 'admin', '/manager.php/user/usercheck/audit/ids/1?dialog=1', '会员管理 / 用户认证管理 / 审核', '{\"dialog\":\"1\",\"selectPage\":\"1\",\"row\":{\"audit_result\":\"1\",\"audit_remark\":\"\"},\"ids\":\"1\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710343846');
+INSERT INTO `fa_admin_log` VALUES ('321', '1', 'admin', '/manager.php/user/usercheck/audit/ids/1?dialog=1', '会员管理 / 用户认证管理 / 审核', '{\"dialog\":\"1\",\"selectPage\":\"1\",\"row\":{\"audit_result\":\"2\",\"audit_remark\":\"drdrdre\"},\"ids\":\"1\"}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710343887');
+INSERT INTO `fa_admin_log` VALUES ('322', '1', 'admin', '/manager.php/general.config/edit', '常规管理 / 系统配置 / 编辑', '{\"__token__\":\"***\",\"row\":{\"kf_phone\":\"13290766539\",\"kf_wechat\":\"ccc503979753\",\"kf_wechat_qrcode\":\"\\/uploads\\/20231119\\/0e20e90472de03cb47ab852d5bea9bb0.jpg\",\"kf_ali\":\"ali\",\"kf_ali_qrcode\":\"\\/uploads\\/20231119\\/36d457bee44b1f1d07ae9bf210af73db.jpg\",\"search_kf\":\"\\/uploads\\/20231118\\/57823b4c1ef248ae612cb5f86ea61ab1.jpg\",\"result_kf\":\"\\/uploads\\/20231119\\/0e20e90472de03cb47ab852d5bea9bb0.jpg\"}}', '0.0.0.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0', '1710344388');
 
 -- ----------------------------
 -- Table structure for `fa_adv`
@@ -336,16 +398,19 @@ INSERT INTO `fa_admin_log` VALUES ('262', '1', 'admin', '/manager.php/auth/admin
 DROP TABLE IF EXISTS `fa_adv`;
 CREATE TABLE `fa_adv` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `site` int(11) DEFAULT '0',
+  `site` int(11) DEFAULT '0' COMMENT '所属站点',
+  `pos` tinyint(1) DEFAULT '1' COMMENT '位置:1=任务页,2=查询页',
   `adv_image` char(200) DEFAULT '' COMMENT '广告图',
   `adv_url` char(200) DEFAULT '' COMMENT '广告链接',
   `show_switch` tinyint(1) DEFAULT '1' COMMENT '是否开启',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='广告表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='广告表';
 
 -- ----------------------------
 -- Records of fa_adv
 -- ----------------------------
+INSERT INTO `fa_adv` VALUES ('1', '1', '1', '/uploads/20240304/c48c5e9a940d871cda065a371281e29e.png', '111', '1');
+INSERT INTO `fa_adv` VALUES ('2', '1', '2', '/uploads/20240304/598d46973f0b539853bf7e08dba23b98.png', '111', '1');
 
 -- ----------------------------
 -- Table structure for `fa_area`
@@ -4144,7 +4209,7 @@ CREATE TABLE `fa_attachment` (
   `storage` varchar(100) NOT NULL DEFAULT 'local' COMMENT '存储位置',
   `sha1` varchar(40) DEFAULT '' COMMENT '文件 sha1编码',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='附件表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='附件表';
 
 -- ----------------------------
 -- Records of fa_attachment
@@ -4152,6 +4217,8 @@ CREATE TABLE `fa_attachment` (
 INSERT INTO `fa_attachment` VALUES ('1', '', '1', '0', '/assets/img/qrcode.png', '150', '150', 'png', '0', 'qrcode.png', '21859', 'image/png', '', '1491635035', '1491635035', '1491635035', 'local', '17163603d0263e4838b9387ff2cd4877e8b018f6');
 INSERT INTO `fa_attachment` VALUES ('2', '', '1', '0', '/uploads/20231103/91faea59f6be98ce1df1e0f458750934.png', '400', '400', 'png', '0', 'wechat.png', '1795', 'image/png', '', '1698981447', '1698981447', '1698981447', 'local', '4e65bea301944f7f7246366f988dd9021ded82ca');
 INSERT INTO `fa_attachment` VALUES ('3', '', '1', '0', '/uploads/20231103/1169a2615366964408d2912416459541.png', '400', '400', 'png', '0', 'ali.png', '1762', 'image/png', '', '1698981455', '1698981455', '1698981455', 'local', '604e26ca4e4d64abef804107abd1ccc6578b3ab8');
+INSERT INTO `fa_attachment` VALUES ('4', '', '1', '0', '/uploads/20240304/c48c5e9a940d871cda065a371281e29e.png', '516', '301', 'png', '0', '微信截图_20240304191510.png', '75797', 'image/png', '', '1709550926', '1709550926', '1709550926', 'local', 'cc1360477aae5d05453bbdfa63364477b3b7fbde');
+INSERT INTO `fa_attachment` VALUES ('5', '', '1', '0', '/uploads/20240304/598d46973f0b539853bf7e08dba23b98.png', '321', '267', 'png', '0', '微信截图_20240304191515.png', '59567', 'image/png', '', '1709550934', '1709550934', '1709550934', 'local', '0bf665c272d40adf9150996b29050e2d5e210a60');
 
 -- ----------------------------
 -- Table structure for `fa_auth_group`
@@ -4195,6 +4262,9 @@ CREATE TABLE `fa_auth_group_access` (
 INSERT INTO `fa_auth_group_access` VALUES ('1', '1');
 INSERT INTO `fa_auth_group_access` VALUES ('2', '2');
 INSERT INTO `fa_auth_group_access` VALUES ('2', '3');
+INSERT INTO `fa_auth_group_access` VALUES ('3', '1');
+INSERT INTO `fa_auth_group_access` VALUES ('3', '2');
+INSERT INTO `fa_auth_group_access` VALUES ('4', '1');
 
 -- ----------------------------
 -- Table structure for `fa_auth_rule`
@@ -4223,7 +4293,7 @@ CREATE TABLE `fa_auth_rule` (
   UNIQUE KEY `name` (`name`) USING BTREE,
   KEY `pid` (`pid`),
   KEY `weigh` (`weigh`)
-) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8mb4 COMMENT='节点表';
+) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8mb4 COMMENT='节点表';
 
 -- ----------------------------
 -- Records of fa_auth_rule
@@ -4349,48 +4419,18 @@ INSERT INTO `fa_auth_rule` VALUES ('123', 'file', '121', 'posts/poststype/add', 
 INSERT INTO `fa_auth_rule` VALUES ('124', 'file', '121', 'posts/poststype/edit', '编辑', 'fa fa-circle-o', '', '', '', '0', null, '', 'bj', 'bianji', '1709110963', '1709111004', '0', 'normal');
 INSERT INTO `fa_auth_rule` VALUES ('125', 'file', '121', 'posts/poststype/del', '删除', 'fa fa-circle-o', '', '', '', '0', null, '', 'sc', 'shanchu', '1709110963', '1709111004', '0', 'normal');
 INSERT INTO `fa_auth_rule` VALUES ('126', 'file', '121', 'posts/poststype/multi', '批量更新', 'fa fa-circle-o', '', '', '', '0', null, '', 'plgx', 'pilianggengxin', '1709110963', '1709111004', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('127', 'file', '0', 'example', '开发示例管理', 'fa fa-magic', '', '', '', '1', null, '', 'kfslgl', 'kaifashiliguanli', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('128', 'file', '127', 'example/bootstraptable', '表格完整示例', 'fa fa-table', '', '', '', '1', null, '', 'bgwzsl', 'biaogewanzhengshili', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('129', 'file', '128', 'example/bootstraptable/index', '查看', 'fa fa-circle-o', '', '', '', '0', null, '', 'zk', 'zhakan', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('130', 'file', '128', 'example/bootstraptable/detail', '详情', 'fa fa-circle-o', '', '', '', '0', null, '', 'xq', 'xiangqing', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('131', 'file', '128', 'example/bootstraptable/change', '变更', 'fa fa-circle-o', '', '', '', '0', null, '', 'bg', 'biangeng', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('132', 'file', '128', 'example/bootstraptable/del', '删除', 'fa fa-circle-o', '', '', '', '0', null, '', 'sc', 'shanchu', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('133', 'file', '128', 'example/bootstraptable/multi', '批量更新', 'fa fa-circle-o', '', '', '', '0', null, '', 'plgx', 'pilianggengxin', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('134', 'file', '127', 'example/customsearch', '自定义搜索', 'fa fa-table', '', '', '', '1', null, '', 'zdyss', 'zidingyisousuo', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('135', 'file', '134', 'example/customsearch/index', '查看', 'fa fa-circle-o', '', '', '', '0', null, '', 'zk', 'zhakan', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('136', 'file', '134', 'example/customsearch/del', '删除', 'fa fa-circle-o', '', '', '', '0', null, '', 'sc', 'shanchu', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('137', 'file', '134', 'example/customsearch/multi', '批量更新', 'fa fa-circle-o', '', '', '', '0', null, '', 'plgx', 'pilianggengxin', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('138', 'file', '127', 'example/customform', '自定义表单示例', 'fa fa-edit', '', '', '', '1', null, '', 'zdybdsl', 'zidingyibiaodanshili', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('139', 'file', '138', 'example/customform/index', '查看', 'fa fa-circle-o', '', '', '', '0', null, '', 'zk', 'zhakan', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('140', 'file', '127', 'example/tablelink', '表格联动示例', 'fa fa-table', '', '', '点击左侧日志列表，右侧的表格数据会显示指定管理员的日志列表', '1', null, '', 'bgldsl', 'biaogeliandongshili', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('141', 'file', '140', 'example/tablelink/index', '查看', 'fa fa-circle-o', '', '', '', '0', null, '', 'zk', 'zhakan', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('142', 'file', '127', 'example/colorbadge', '彩色角标', 'fa fa-table', '', '', '左侧彩色的角标会根据当前数据量的大小进行更新', '1', null, '', 'csjb', 'caisejiaobiao', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('143', 'file', '142', 'example/colorbadge/index', '查看', 'fa fa-circle-o', '', '', '', '0', null, '', 'zk', 'zhakan', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('144', 'file', '142', 'example/colorbadge/del', '删除', 'fa fa-circle-o', '', '', '', '0', null, '', 'sc', 'shanchu', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('145', 'file', '142', 'example/colorbadge/multi', '批量更新', 'fa fa-circle-o', '', '', '', '0', null, '', 'plgx', 'pilianggengxin', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('146', 'file', '127', 'example/controllerjump', '控制器间跳转', 'fa fa-table', '', '', '点击IP地址可以跳转到新的选项卡中查看指定IP的数据', '1', null, '', 'kzqjtz', 'kongzhiqijiantiaozhuan', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('147', 'file', '146', 'example/controllerjump/index', '查看', 'fa fa-circle-o', '', '', '', '0', null, '', 'zk', 'zhakan', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('148', 'file', '146', 'example/controllerjump/del', '删除', 'fa fa-circle-o', '', '', '', '0', null, '', 'sc', 'shanchu', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('149', 'file', '146', 'example/controllerjump/multi', '批量更新', 'fa fa-circle-o', '', '', '', '0', null, '', 'plgx', 'pilianggengxin', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('150', 'file', '127', 'example/cxselect', '多级联动', 'fa fa-table', '', '', '基于jquery.cxselect实现的多级联动', '1', null, '', 'djld', 'duojiliandong', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('151', 'file', '150', 'example/cxselect/index', '查看', 'fa fa-circle-o', '', '', '', '0', null, '', 'zk', 'zhakan', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('152', 'file', '150', 'example/cxselect/del', '删除', 'fa fa-circle-o', '', '', '', '0', null, '', 'sc', 'shanchu', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('153', 'file', '150', 'example/cxselect/multi', '批量更新', 'fa fa-circle-o', '', '', '', '0', null, '', 'plgx', 'pilianggengxin', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('154', 'file', '127', 'example/multitable', '多表格示例', 'fa fa-table', '', '', '展示在一个页面显示多个Bootstrap-table表格', '1', null, '', 'dbgsl', 'duobiaogeshili', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('155', 'file', '154', 'example/multitable/index', '查看', 'fa fa-circle-o', '', '', '', '0', null, '', 'zk', 'zhakan', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('156', 'file', '154', 'example/multitable/del', '删除', 'fa fa-circle-o', '', '', '', '0', null, '', 'sc', 'shanchu', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('157', 'file', '154', 'example/multitable/multi', '批量更新', 'fa fa-circle-o', '', '', '', '0', null, '', 'plgx', 'pilianggengxin', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('158', 'file', '127', 'example/relationmodel', '关联模型示例', 'fa fa-table', '', '', '列表中的头像、用户名和昵称字段均从关联表中取出', '1', null, '', 'glmxsl', 'guanlianmoxingshili', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('159', 'file', '158', 'example/relationmodel/index', '查看', 'fa fa-circle-o', '', '', '', '0', null, '', 'zk', 'zhakan', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('160', 'file', '158', 'example/relationmodel/del', '删除', 'fa fa-circle-o', '', '', '', '0', null, '', 'sc', 'shanchu', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('161', 'file', '158', 'example/relationmodel/multi', '批量更新', 'fa fa-circle-o', '', '', '', '0', null, '', 'plgx', 'pilianggengxin', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('162', 'file', '127', 'example/tabletemplate', '表格模板示例', 'fa fa-table', '', '', '', '1', null, '', 'bgmbsl', 'biaogemubanshili', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('163', 'file', '162', 'example/tabletemplate/index', '查看', 'fa fa-circle-o', '', '', '', '0', null, '', 'zk', 'zhakan', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('164', 'file', '162', 'example/tabletemplate/detail', '详情', 'fa fa-circle-o', '', '', '', '0', null, '', 'xq', 'xiangqing', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('165', 'file', '162', 'example/tabletemplate/del', '删除', 'fa fa-circle-o', '', '', '', '0', null, '', 'sc', 'shanchu', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('166', 'file', '162', 'example/tabletemplate/multi', '批量更新', 'fa fa-circle-o', '', '', '', '0', null, '', 'plgx', 'pilianggengxin', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('167', 'file', '127', 'example/echarts', '统计图表示例', 'fa fa-bar-chart', '', '', '', '1', null, '', 'tjtbsl', 'tongjitubiaoshili', '1709201503', '1709201503', '0', 'normal');
-INSERT INTO `fa_auth_rule` VALUES ('168', 'file', '167', 'example/echarts/index', '查看', 'fa fa-circle-o', '', '', '', '0', null, '', 'zk', 'zhakan', '1709201503', '1709201503', '0', 'normal');
+INSERT INTO `fa_auth_rule` VALUES ('169', 'file', '0', 'notice', '公告管理', 'fa fa-circle-o', '', '', '', '1', null, '', 'N', 'Notice', '1709545165', '1709545165', '0', 'normal');
+INSERT INTO `fa_auth_rule` VALUES ('170', 'file', '169', 'notice/index', '查看', 'fa fa-circle-o', '', '', '', '0', null, '', 'zk', 'zhakan', '1709545165', '1709545165', '0', 'normal');
+INSERT INTO `fa_auth_rule` VALUES ('171', 'file', '169', 'notice/add', '添加', 'fa fa-circle-o', '', '', '', '0', null, '', 'tj', 'tianjia', '1709545165', '1709545165', '0', 'normal');
+INSERT INTO `fa_auth_rule` VALUES ('172', 'file', '169', 'notice/edit', '编辑', 'fa fa-circle-o', '', '', '', '0', null, '', 'bj', 'bianji', '1709545165', '1709545165', '0', 'normal');
+INSERT INTO `fa_auth_rule` VALUES ('173', 'file', '169', 'notice/del', '删除', 'fa fa-circle-o', '', '', '', '0', null, '', 'sc', 'shanchu', '1709545165', '1709545165', '0', 'normal');
+INSERT INTO `fa_auth_rule` VALUES ('174', 'file', '169', 'notice/multi', '批量更新', 'fa fa-circle-o', '', '', '', '0', null, '', 'plgx', 'pilianggengxin', '1709545165', '1709545165', '0', 'normal');
+INSERT INTO `fa_auth_rule` VALUES ('175', 'file', '0', 'adv', '广告管理', 'fa fa-circle-o', '', '', '', '1', null, '', 'gggl', 'guanggaoguanli', '1709545171', '1709545171', '0', 'normal');
+INSERT INTO `fa_auth_rule` VALUES ('176', 'file', '175', 'adv/index', '查看', 'fa fa-circle-o', '', '', '', '0', null, '', 'zk', 'zhakan', '1709545171', '1709545171', '0', 'normal');
+INSERT INTO `fa_auth_rule` VALUES ('177', 'file', '175', 'adv/add', '添加', 'fa fa-circle-o', '', '', '', '0', null, '', 'tj', 'tianjia', '1709545171', '1709545171', '0', 'normal');
+INSERT INTO `fa_auth_rule` VALUES ('178', 'file', '175', 'adv/edit', '编辑', 'fa fa-circle-o', '', '', '', '0', null, '', 'bj', 'bianji', '1709545171', '1709545171', '0', 'normal');
+INSERT INTO `fa_auth_rule` VALUES ('179', 'file', '175', 'adv/del', '删除', 'fa fa-circle-o', '', '', '', '0', null, '', 'sc', 'shanchu', '1709545171', '1709545171', '0', 'normal');
+INSERT INTO `fa_auth_rule` VALUES ('180', 'file', '175', 'adv/multi', '批量更新', 'fa fa-circle-o', '', '', '', '0', null, '', 'plgx', 'pilianggengxin', '1709545171', '1709545171', '0', 'normal');
 
 -- ----------------------------
 -- Table structure for `fa_category`
@@ -4444,19 +4484,20 @@ CREATE TABLE `fa_city_site` (
   `show_switch` tinyint(1) DEFAULT '1' COMMENT '是否显示',
   `createtime` bigint(20) DEFAULT '0' COMMENT '创建时间',
   `updatetime` bigint(20) DEFAULT '0' COMMENT '更新时间',
+  `admin_id` int(10) DEFAULT '0' COMMENT '站长',
   PRIMARY KEY (`id`),
   KEY `show_switch` (`show_switch`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='站点城市表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='站点城市表';
 
 -- ----------------------------
 -- Records of fa_city_site
 -- ----------------------------
-INSERT INTO `fa_city_site` VALUES ('0', '不限', '0', '1', '0', '0');
-INSERT INTO `fa_city_site` VALUES ('1', '诸城', '1', '1', '1702391241', '1708498314');
-INSERT INTO `fa_city_site` VALUES ('2', '青岛', '2', '1', '1702391306', '1708498293');
-INSERT INTO `fa_city_site` VALUES ('3', '济南', '3', '1', '1704349465', '1708498288');
-INSERT INTO `fa_city_site` VALUES ('4', '淄博', '4', '1', '1704349474', '1708498282');
-INSERT INTO `fa_city_site` VALUES ('5', '潍坊', '5', '1', '1706575065', '1706575065');
+INSERT INTO `fa_city_site` VALUES ('0', '全国', '99', '1', '0', '0', '0');
+INSERT INTO `fa_city_site` VALUES ('1', '诸城', '1', '1', '1702391241', '1708498314', '0');
+INSERT INTO `fa_city_site` VALUES ('2', '青岛', '2', '1', '1702391306', '1708498293', '0');
+INSERT INTO `fa_city_site` VALUES ('3', '济南', '3', '1', '1704349465', '1708498288', '0');
+INSERT INTO `fa_city_site` VALUES ('4', '淄博', '4', '1', '1704349474', '1709629026', '4');
+INSERT INTO `fa_city_site` VALUES ('5', '潍坊', '5', '1', '1706575065', '1709622816', '2');
 
 -- ----------------------------
 -- Table structure for `fa_config`
@@ -4477,12 +4518,12 @@ CREATE TABLE `fa_config` (
   `setting` varchar(255) DEFAULT '' COMMENT '配置',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置';
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置';
 
 -- ----------------------------
 -- Records of fa_config
 -- ----------------------------
-INSERT INTO `fa_config` VALUES ('1', 'name', 'basic', 'Site name', '请填写站点名称', 'string', '', '信言小程序', '', 'required', '', null);
+INSERT INTO `fa_config` VALUES ('1', 'name', 'basic', 'Site name', '请填写站点名称', 'string', '', '贷办通1.0', '', 'required', '', null);
 INSERT INTO `fa_config` VALUES ('2', 'beian', 'basic', 'Beian', '粤ICP备15000000号-1', 'string', '', '', '', '', '', null);
 INSERT INTO `fa_config` VALUES ('3', 'cdnurl', 'basic', 'Cdn url', '如果全站静态资源使用第三方云储存请配置该值', 'string', '', '', '', '', '', '');
 INSERT INTO `fa_config` VALUES ('4', 'version', 'basic', 'Version', '如果静态资源有变动请重新配置该值', 'string', '', '1.0.5', '', 'required', '', null);
@@ -4491,19 +4532,22 @@ INSERT INTO `fa_config` VALUES ('6', 'forbiddenip', 'basic', 'Forbidden ip', '�
 INSERT INTO `fa_config` VALUES ('7', 'languages', 'basic', 'Languages', '', 'array', '', '{\"backend\":\"zh-cn\",\"frontend\":\"zh-cn\"}', '', 'required', '', null);
 INSERT INTO `fa_config` VALUES ('8', 'fixedpage', 'basic', 'Fixed page', '请输入左侧菜单栏存在的链接', 'string', '', 'dashboard', '', 'required', '', null);
 INSERT INTO `fa_config` VALUES ('9', 'categorytype', 'dictionary', 'Category type', '', 'array', '', '{\"default\":\"Default\",\"page\":\"Page\",\"article\":\"Article\",\"test\":\"Test\"}', '', '', '', '');
-INSERT INTO `fa_config` VALUES ('10', 'configgroup', 'dictionary', 'Config group', '', 'array', '', '{\"basic\":\"Basic\",\"kf\":\"客服配置\",\"notice\":\"公告配置\",\"adv\":\"广告配置\",\"search_money\":\"查询费用配置\",\"privacy_policy\":\"隐私政策\"}', '', '', '', '');
+INSERT INTO `fa_config` VALUES ('10', 'configgroup', 'dictionary', 'Config group', '', 'array', '', '{\"basic\":\"Basic\",\"kf\":\"客服配置\",\"search_money\":\"费用配置\",\"privacy_policy\":\"隐私政策\"}', '', '', '', '');
 INSERT INTO `fa_config` VALUES ('18', 'attachmentcategory', 'dictionary', 'Attachment category', '', 'array', '', '{\"category1\":\"Category1\",\"category2\":\"Category2\",\"custom\":\"Custom\"}', '', '', '', '');
-INSERT INTO `fa_config` VALUES ('29', 'notice', 'notice', '公告内容', '', 'text', '', '111', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
-INSERT INTO `fa_config` VALUES ('30', 'img', 'adv', '广告图片', '', 'image', '', '', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
-INSERT INTO `fa_config` VALUES ('31', 'url', 'adv', '广告链接', '', 'string', '', '11', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
-INSERT INTO `fa_config` VALUES ('32', 'is_show', 'adv', '是否开启广告', '', 'switch', '', '1', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
-INSERT INTO `fa_config` VALUES ('33', 'shesu_money', 'search_money', '司法查询费用', '', 'number', '', '100', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
-INSERT INTO `fa_config` VALUES ('36', 'privacy_policy_content', 'privacy_policy', '政策内容', '', 'editor', '', '1隐私政策1', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
-INSERT INTO `fa_config` VALUES ('39', 'search_adv_img', 'adv', '查询页广告图', '', 'image', '', '', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
-INSERT INTO `fa_config` VALUES ('40', 'search_adv_link', 'adv', '查询页广告图链接', '', 'string', '', '', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
-INSERT INTO `fa_config` VALUES ('41', 'search_adv_isshow', 'adv', '是否开启查询页广告', '', 'switch', '', '0', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
+INSERT INTO `fa_config` VALUES ('24', 'kf_phone', 'kf', '客服联系电话', '', 'string', '', '13290766539', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
+INSERT INTO `fa_config` VALUES ('25', 'kf_wechat', 'kf', '客服微信号', '', 'string', '', 'ccc503979753', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
+INSERT INTO `fa_config` VALUES ('26', 'kf_wechat_qrcode', 'kf', '客服微信二维码', '', 'image', '', '/uploads/20231119/0e20e90472de03cb47ab852d5bea9bb0.jpg', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
+INSERT INTO `fa_config` VALUES ('27', 'kf_ali', 'kf', '客服支付宝号', '', 'string', '', 'ali', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
+INSERT INTO `fa_config` VALUES ('28', 'kf_ali_qrcode', 'kf', '客服支付宝二维码', '', 'image', '', '/uploads/20231119/36d457bee44b1f1d07ae9bf210af73db.jpg', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
+INSERT INTO `fa_config` VALUES ('33', 'shesu_money', 'search_money', '涉诉查询费用', '', 'number', '', '7', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
+INSERT INTO `fa_config` VALUES ('36', 'privacy_policy_content', 'privacy_policy', '政策内容', '', 'editor', '', '<p>&nbsp;&nbsp;&nbsp;&nbsp; 本应用非常重视用户隐私政策并严格遵守相关的法律规定。请您仔细阅读《隐私政策》后再继续使用。如果您继续使用我们的服务，表示您已经充分阅读和理解我们协议的全部内容。\r\n\r\n　　</p><p>&nbsp;&nbsp;&nbsp;&nbsp; 本app尊重并保护所有使用服务用户的个人隐私权。为了给您提供更准确、更优质的服务，本应用会按照本隐私权政策的规定使用和披露您的个人信息。除本隐私权政策另有规定外，在未征得您事先许可的情况下，本应用不会将这些信息对外披露或向第三方提供。本应用会不时更新本隐私权政策。您在同意本应用服务使用协议之时，即视为您已经同意本隐私权政策全部内容。\r\n\r\n　　</p><p>1.适用范围\r\n\r\n　</p><p>　 (a)在您注册本应用app帐号时，您根据app要求提供的个人注册信息；\r\n\r\n　</p><p>　 (b)在您使用本应用网络服务，或访问本应用平台网页时，本应用自动接收并记录的您的浏览器和计算机上的信息，包括但不限于您的IP地址、浏览器的类型、使用的语言、访问日期和时间、软硬件特征信息及您需求的网页记录等数据；\r\n\r\n　　 　</p><p>&nbsp; &nbsp;&nbsp; (c)本应用通过合法途径从商业伙伴处取得的用户个人数据。\r\n\r\n　　</p><p>&nbsp;&nbsp;&nbsp;&nbsp; (d)本应用严禁用户发布不良信息，如裸露、色情和亵渎内容，发布的内容我们会进行审核，一经发现不良信息，会禁用该用户的所有权限，予以封号处理。\r\n\r\n　</p><p>2.信息使用\r\n\r\n　</p><p>　&nbsp; (a)本应用不会向任何无关第三方提供、出售、出租、分享或交易您的个人登录信息。如果我们存储发生维修或升级，我们会事先发出推送消息来通知您，请您提前允许本应用消息通知。\r\n\r\n　</p><p>　&nbsp; (b)本应用亦不允许任何第三方以任何手段收集、编辑、出售或者无偿传播您的个人信息。任何本应用平台用户如从事上述活动，一经发现，本应用有权立即终止与该用户的服务协议。\r\n\r\n　　</p><p>&nbsp; &nbsp;&nbsp; (c)为服务用户的目的，本应用可能通过使用您的个人信息，向您提供您感兴趣的信息，包括但不限于向您发出产品和服务信息，或者与本应用合作伙伴共享信息以便他们向您发送有关其产品和服务的信息（后者需要您的事先同意）。\r\n\r\n　</p><p>　3.信息披露\r\n\r\n　　</p><p>&nbsp;&nbsp;&nbsp;&nbsp; 在如下情况下，本应用将依据您的个人意愿或法律的规定全部或部分的披露您的个人信息：\r\n\r\n　</p><p>　 (a)未经您事先同意，我们不会向第三方披露；\r\n\r\n　</p><p>　 (b)为提供您所要求的产品和服务，而必须和第三方分享您的个人信息；\r\n\r\n　　</p><p>&nbsp;&nbsp;&nbsp;&nbsp; (c)根据法律的有关规定，或者行政或司法机构的要求，向第三方或者行政、司法机构披露；\r\n\r\n　　</p><p>&nbsp;&nbsp;&nbsp;&nbsp; (d)如您出现违反中国有关法律、法规或者本应用服务协议或相关规则的情况，需要向第三方披露；\r\n\r\n　　</p><p>&nbsp;&nbsp;&nbsp;&nbsp; (e)如您是适格的知识产权投诉人并已提起投诉，应被投诉人要求，向被投诉人披露，以便双方处理可能的权利纠纷；\r\n\r\n　</p><p>　4.信息存储和交换\r\n\r\n　　</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 本应用收集的有关您的信息和资料将保存在本应用及（或）其关联公司的服务器上，这些信息和资料可能传送至您所在国家、地区或本应用收集信息和资料所在地的境外并在境外被访问、存储和展示。\r\n\r\n　　我们的产品集成友盟+SDK，友盟+SDK在后台状态/静默状态需要收集您的设备Mac地址、唯一设备识别码（IMEI/android ID/IDFA/OPENUDID/GUID、SIM 卡 IMSI 信息）以提供统计分析服务，并通过地理位置校准报表数据准确性，提供基础反作弊能力。\r\n\r\n　</p><p>　5. Cookie的使用\r\n\r\n　　</p><p>&nbsp;&nbsp;&nbsp;&nbsp; (a)在您未拒绝接受cookies的情况下，本应用会在您的计算机上设定或取用cookies，以便您能登录或使用依赖于cookies的本应用平台服务或功能。本应用使用cookies可为您提供更加周到的个性化服务，包括推广服务。\r\n\r\n</p><p>　&nbsp; (b)您有权选择接受或拒绝接受cookies。您可以通过修改浏览器设置的方式拒绝接受cookies。但如果您选择拒绝接受cookies，则您可能无法登录或使用依赖于cookies的本应用网络服务或功能。\r\n\r\n　</p><p>&nbsp;　(c)通过本应用所设cookies所取得的有关信息，将适用本政策。\r\n\r\n　　</p><p>6.本隐私政策的更改\r\n\r\n　　</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (a)如果决定更改隐私政策，我们会在本政策中、本公司网站中以及我们认为适当的位置发布这些更改，以便您了解我们如何收集、使用您的个人信息，哪些人可以访问这些信息，以及在什么情况下我们会透露这些信息。\r\n\r\n　</p><p>　 (b)本公司（福建信言贸易有限公司注册地位于北京市海淀区魏公村路2号8层808室 电话：010-57519333 邮箱地址：duhy@ouchn.edu.cn）保留随时修改本政策的权利，因此请经常查看。如对本政策作出重大更改，本公司会通过网站通知的形式告知。\r\n\r\n　　</p><p>&nbsp;&nbsp;&nbsp;&nbsp; 方披露自己的个人信息，如联络方式或者邮政地址。请您妥善保护自己的个人信息，仅在必要的情形下向他人提供。如您发现自己的个人信息泄密，尤其是本应用用户名及密码发生泄露，请您立即联络本应用客服，以便本应用采取相应措施。\r\n\r\n　　</p><p>&nbsp;&nbsp;&nbsp; 感谢您花时间了解我们的隐私政策！我们将尽全力保护您的个人信息和合法权益，再次感谢您的信任！\r\n</p><p>联系我们：\r\n</p><p>&nbsp;&nbsp; 客服:13290766539 \r\n\r\n </p><p>闽ICP备2023004945号-1</p><p>\r\n Copyright 2020-2023 福建信言贸易有限公司 版权所有</p>', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
+INSERT INTO `fa_config` VALUES ('37', 'search_kf', 'kf', '查询客服二维码', '', 'image', '', '/uploads/20231118/57823b4c1ef248ae612cb5f86ea61ab1.jpg', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
+INSERT INTO `fa_config` VALUES ('38', 'result_kf', 'kf', '查询结果客服二维码', '', 'image', '', '/uploads/20231119/0e20e90472de03cb47ab852d5bea9bb0.jpg', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
 INSERT INTO `fa_config` VALUES ('47', 'hosturl', 'basic', '网站域名', '', 'string', '', 'http://tataxy.com', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
 INSERT INTO `fa_config` VALUES ('49', 'sijie_money', 'search_money', '私借查询费用', '', 'number', '', '10', null, '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
+INSERT INTO `fa_config` VALUES ('50', 'commission_rate', 'search_money', '佣金比例(%)', '', 'number', '', '0', '', 'digits', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
+INSERT INTO `fa_config` VALUES ('51', 'post_top_money', 'search_money', '帖子置顶费用', '', 'number', '', '10', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
+INSERT INTO `fa_config` VALUES ('52', 'post_recommand_money', 'search_money', '帖子推荐费用', '', 'number', '', '10', '', '', '', '{\"table\":\"\",\"conditions\":\"\",\"key\":\"\",\"value\":\"\"}');
 
 -- ----------------------------
 -- Table structure for `fa_ems`
@@ -4523,6 +4567,24 @@ CREATE TABLE `fa_ems` (
 -- ----------------------------
 -- Records of fa_ems
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `fa_notice`
+-- ----------------------------
+DROP TABLE IF EXISTS `fa_notice`;
+CREATE TABLE `fa_notice` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `site` int(11) DEFAULT NULL COMMENT '所属站点',
+  `content` text COMMENT '公告内容',
+  `show_switch` tinyint(1) DEFAULT '1' COMMENT '是否开启:1=是,0=否',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='公告表';
+
+-- ----------------------------
+-- Records of fa_notice
+-- ----------------------------
+INSERT INTO `fa_notice` VALUES ('1', null, '1212121', '1');
+INSERT INTO `fa_notice` VALUES ('2', '1', '12121212', '1');
 
 -- ----------------------------
 -- Table structure for `fa_posts`
@@ -4568,13 +4630,19 @@ CREATE TABLE `fa_posts` (
   KEY `deletetime` (`deletetime`),
   KEY `like_num` (`like_num`),
   KEY `comment_num` (`comment_num`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='帖子表';
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='帖子表';
 
 -- ----------------------------
 -- Records of fa_posts
 -- ----------------------------
-INSERT INTO `fa_posts` VALUES ('1', '1', '1', '1,2,3,4', '2', '帖子的标题,如果标题字数多余20个字,就省略多余的,用省略号代替', '', '1', null, null, '1', null, null, '0', '1', '', '', '0', '1709276702', null, '0', '0');
-INSERT INTO `fa_posts` VALUES ('2', '0', '0', '1,2', '2', '112121', '<p>121313</p>', '0', '1709276718', '1709276718', '0', '1709276718', '1709276718', '0', '1', '', '', '1709276726', '1709276726', null, '0', '0');
+INSERT INTO `fa_posts` VALUES ('1', '1', '1', '1,2,3,4', '2', '帖子的标题,如果标题字数多余20个字,就省略多余的,用省略号代替', '', '1', null, null, '1', null, null, '0', '1', '', '', '0', '1709276702', null, '1', '0');
+INSERT INTO `fa_posts` VALUES ('2', '0', '0', '1,2', '2', '112121', '<p>121313</p>', '0', '1709276718', '1709276718', '0', '1709276718', '1709276718', '0', '1', '', '', '1709276726', '1709276726', null, '1', '0');
+INSERT INTO `fa_posts` VALUES ('3', '46', '1', '', '1', '1111', null, '0', '0', '0', '0', '0', '0', '0', '1', null, null, '0', '0', null, '1', '0');
+INSERT INTO `fa_posts` VALUES ('4', '46', '1', '', '1', '', null, '1', '1710235111', '1710839911', '1', '1710235111', '1710839911', '0', '1', null, null, '0', '0', null, '0', '0');
+INSERT INTO `fa_posts` VALUES ('5', '46', '1', '', '1', '', null, '1', '1710235225', '1710840025', '1', '1710235225', '1710840025', '0', '1', null, null, '0', '0', null, '0', '0');
+INSERT INTO `fa_posts` VALUES ('6', '46', '1', '', '1', '', null, '1', '1710235286', '1710840086', '1', '1710235286', '1710840086', '0', '1', null, null, '0', '0', null, '0', '0');
+INSERT INTO `fa_posts` VALUES ('7', '46', '1', '', '1', '', null, '1', '1710235320', '1710840120', '1', '1710235320', '1710840120', '0', '1', null, null, '0', '0', null, '0', '0');
+INSERT INTO `fa_posts` VALUES ('8', '46', '1', '', '1', '', null, '1', '1710235345', '1710840145', '1', '1710235345', '1710840145', '0', '1', null, null, '0', '0', null, '0', '0');
 
 -- ----------------------------
 -- Table structure for `fa_posts_comment`
@@ -4585,18 +4653,24 @@ CREATE TABLE `fa_posts_comment` (
   `pid` int(11) DEFAULT '0' COMMENT '上级评论',
   `posts_id` int(11) NOT NULL DEFAULT '0' COMMENT '帖子ID',
   `user_id` int(11) DEFAULT '0' COMMENT '评论用户',
-  `to_user` int(11) DEFAULT '0' COMMENT '回复目标',
-  `comment_content` text COMMENT '评论内容',
+  `to_user_id` int(11) DEFAULT '0' COMMENT '回复目标',
+  `comment_content` varchar(200) DEFAULT '' COMMENT '评论内容',
   `createtime` bigint(20) DEFAULT '0' COMMENT '评论时间',
   PRIMARY KEY (`id`),
   KEY `posts_id` (`posts_id`),
   KEY `user_id` (`user_id`),
   KEY `pid` (`pid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子评论表';
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='帖子评论表';
 
 -- ----------------------------
 -- Records of fa_posts_comment
 -- ----------------------------
+INSERT INTO `fa_posts_comment` VALUES ('1', '0', '1', '46', '0', '55555555', '1710081981');
+INSERT INTO `fa_posts_comment` VALUES ('2', '0', '1', '46', '0', '55555555', '1710118196');
+INSERT INTO `fa_posts_comment` VALUES ('3', '2', '1', '46', '46', '55555555', '1710147265');
+INSERT INTO `fa_posts_comment` VALUES ('4', '0', '2', '46', '0', '34343434', '1710342877');
+INSERT INTO `fa_posts_comment` VALUES ('5', '0', '2', '46', '1', '34343434', '1710342897');
+INSERT INTO `fa_posts_comment` VALUES ('6', '0', '3', '46', '1', '34343434', '1710343137');
 
 -- ----------------------------
 -- Table structure for `fa_posts_like`
@@ -4610,11 +4684,14 @@ CREATE TABLE `fa_posts_like` (
   PRIMARY KEY (`id`),
   KEY `posts_id` (`posts_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='帖子点赞表';
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='帖子点赞表';
 
 -- ----------------------------
 -- Records of fa_posts_like
 -- ----------------------------
+INSERT INTO `fa_posts_like` VALUES ('1', '1', '46', '1710342790');
+INSERT INTO `fa_posts_like` VALUES ('4', '2', '46', '1710342989');
+INSERT INTO `fa_posts_like` VALUES ('5', '3', '46', '1710343123');
 
 -- ----------------------------
 -- Table structure for `fa_posts_type`
@@ -4647,60 +4724,68 @@ DROP TABLE IF EXISTS `fa_record_recharge`;
 CREATE TABLE `fa_record_recharge` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `user_id` int(11) NOT NULL COMMENT '用户id',
-  `admin_id` int(11) NOT NULL COMMENT '操作人id',
+  `admin_id` int(11) NOT NULL DEFAULT '0' COMMENT '操作人id',
+  `title` varchar(200) DEFAULT '',
+  `flag` tinyint(1) DEFAULT '1' COMMENT '标识:1=增加,2=减少',
   `money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '充值金额',
   `before` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '充值前金额',
   `after` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '充值后金额',
   `createtime` bigint(20) NOT NULL COMMENT '充值时间',
-  `remark` varchar(200) NOT NULL COMMENT '备注',
+  `remark` varchar(200) NOT NULL DEFAULT '' COMMENT '备注',
   `type` tinyint(1) DEFAULT '1' COMMENT '充值类型:1=本地,2=支付宝,3=微信',
   `pay_no` char(50) DEFAULT '' COMMENT '支付订单',
   `order_no` char(32) DEFAULT '' COMMENT '支付订单',
   `pay_result` tinyint(1) DEFAULT '0' COMMENT '支付结果:0=待支付,1=支付成功,2=支付失败',
   `pay_time` bigint(20) DEFAULT NULL COMMENT '支付时间',
+  `site` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `createtime` (`createtime`),
-  KEY `order_no` (`order_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COMMENT='充值记录表';
+  KEY `order_no` (`order_no`),
+  KEY `flag` (`flag`),
+  KEY `type` (`type`),
+  KEY `site` (`site`)
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COMMENT='充值记录表';
 
 -- ----------------------------
 -- Records of fa_record_recharge
 -- ----------------------------
-INSERT INTO `fa_record_recharge` VALUES ('1', '1', '1', '100.00', '100.00', '100.00', '1698911357', '111', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('2', '2', '1', '200.00', '300.00', '300.00', '1698911420', '1', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('3', '2', '1', '22.00', '300.00', '322.00', '1698913758', '22', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('4', '3', '1', '1000.00', '0.00', '1000.00', '1699286554', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('5', '7', '1', '500.00', '0.00', '500.00', '1699432323', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('6', '7', '1', '200.00', '400.00', '600.00', '1699590864', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('7', '8', '1', '100.00', '0.00', '100.00', '1699850685', '人工充值', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('8', '9', '1', '1000.00', '0.00', '1000.00', '1699867881', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('9', '10', '1', '10000.00', '0.00', '10000.00', '1699868201', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('10', '11', '1', '300.00', '0.00', '300.00', '1699931600', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('11', '8', '1', '1000.00', '0.00', '1000.00', '1699943514', '测试', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('12', '12', '1', '30.00', '0.00', '30.00', '1700465334', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('13', '13', '1', '20.00', '0.00', '20.00', '1700473510', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('14', '14', '1', '20.00', '0.00', '20.00', '1700473516', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('15', '19', '1', '1000.00', '0.00', '1000.00', '1700487915', '测试', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('16', '29', '1', '1000.00', '0.00', '1000.00', '1700533915', '首次充值', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('17', '29', '1', '-100.00', '1000.00', '900.00', '1700533931', '充多了，减去100', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('18', '29', '1', '-100.00', '900.00', '800.00', '1700533997', '充错了', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('19', '29', '1', '10.00', '800.00', '810.00', '1700534812', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('20', '28', '1', '10.00', '0.00', '10.00', '1700534823', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('21', '27', '1', '10.00', '0.00', '10.00', '1700534830', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('22', '26', '1', '10.00', '0.00', '10.00', '1700534839', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('23', '25', '1', '10.00', '0.00', '10.00', '1700534847', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('24', '24', '1', '10.00', '0.00', '10.00', '1700534853', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('25', '23', '1', '10.00', '0.00', '10.00', '1700534859', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('26', '21', '1', '10.00', '0.00', '10.00', '1700534870', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('27', '29', '1', '-100.00', '810.00', '710.00', '1700535090', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('28', '31', '1', '10.00', '0.00', '10.00', '1700536668', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('29', '30', '1', '10.00', '0.00', '10.00', '1700536675', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('30', '17', '1', '10.00', '0.00', '10.00', '1700536693', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('31', '41', '1', '100.00', '0.00', '100.00', '1700989070', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('32', '43', '1', '300.00', '0.00', '300.00', '1701238045', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('33', '39', '1', '10.00', '0.00', '10.00', '1701242047', '', '1', '', '', '1', null);
-INSERT INTO `fa_record_recharge` VALUES ('66', '46', '0', '0.01', '0.00', '0.01', '1702568723', '', '2', '2023121422001452601416250747', '20231214234523738926', '1', '1702568728');
+INSERT INTO `fa_record_recharge` VALUES ('1', '1', '1', '', '1', '100.00', '100.00', '100.00', '1698911357', '111', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('2', '2', '1', '', '1', '200.00', '300.00', '300.00', '1698911420', '1', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('3', '2', '1', '', '1', '22.00', '300.00', '322.00', '1698913758', '22', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('4', '3', '1', '', '1', '1000.00', '0.00', '1000.00', '1699286554', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('5', '7', '1', '', '1', '500.00', '0.00', '500.00', '1699432323', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('6', '7', '1', '', '1', '200.00', '400.00', '600.00', '1699590864', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('7', '8', '1', '', '1', '100.00', '0.00', '100.00', '1699850685', '人工充值', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('8', '9', '1', '', '1', '1000.00', '0.00', '1000.00', '1699867881', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('9', '10', '1', '', '1', '10000.00', '0.00', '10000.00', '1699868201', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('10', '11', '1', '', '1', '300.00', '0.00', '300.00', '1699931600', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('11', '8', '1', '', '1', '1000.00', '0.00', '1000.00', '1699943514', '测试', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('12', '12', '1', '', '1', '30.00', '0.00', '30.00', '1700465334', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('13', '13', '1', '', '1', '20.00', '0.00', '20.00', '1700473510', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('14', '14', '1', '', '1', '20.00', '0.00', '20.00', '1700473516', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('15', '19', '1', '', '1', '1000.00', '0.00', '1000.00', '1700487915', '测试', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('16', '29', '1', '', '1', '1000.00', '0.00', '1000.00', '1700533915', '首次充值', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('17', '29', '1', '', '1', '-100.00', '1000.00', '900.00', '1700533931', '充多了，减去100', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('18', '29', '1', '', '1', '-100.00', '900.00', '800.00', '1700533997', '充错了', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('19', '29', '1', '', '1', '10.00', '800.00', '810.00', '1700534812', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('20', '28', '1', '', '1', '10.00', '0.00', '10.00', '1700534823', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('21', '27', '1', '', '1', '10.00', '0.00', '10.00', '1700534830', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('22', '26', '1', '', '1', '10.00', '0.00', '10.00', '1700534839', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('23', '25', '1', '', '1', '10.00', '0.00', '10.00', '1700534847', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('24', '24', '1', '', '1', '10.00', '0.00', '10.00', '1700534853', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('25', '23', '1', '', '1', '10.00', '0.00', '10.00', '1700534859', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('26', '21', '1', '', '1', '10.00', '0.00', '10.00', '1700534870', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('27', '29', '1', '', '1', '-100.00', '810.00', '710.00', '1700535090', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('28', '31', '1', '', '1', '10.00', '0.00', '10.00', '1700536668', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('29', '30', '1', '', '1', '10.00', '0.00', '10.00', '1700536675', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('30', '17', '1', '', '1', '10.00', '0.00', '10.00', '1700536693', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('31', '41', '1', '', '1', '100.00', '0.00', '100.00', '1700989070', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('32', '43', '1', '', '1', '300.00', '0.00', '300.00', '1701238045', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('33', '39', '1', '', '1', '10.00', '0.00', '10.00', '1701242047', '', '1', '', '', '1', null, '0');
+INSERT INTO `fa_record_recharge` VALUES ('66', '46', '0', '', '1', '0.01', '0.00', '0.01', '1702568723', '', '2', '2023121422001452601416250747', '20231214234523738926', '1', '1702568728', '0');
+INSERT INTO `fa_record_recharge` VALUES ('67', '46', '0', '帖子推荐', '2', '10.00', '0.00', '0.00', '1710235345', '', '1', '', '', '1', null, '1');
+INSERT INTO `fa_record_recharge` VALUES ('68', '46', '0', '帖子置顶', '2', '10.00', '0.00', '0.00', '1710235345', '', '1', '', '', '1', null, '1');
 
 -- ----------------------------
 -- Table structure for `fa_record_search`
@@ -4710,7 +4795,7 @@ CREATE TABLE `fa_record_search` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `user_id` int(11) NOT NULL COMMENT '用户id',
   `relation_id` int(11) DEFAULT NULL COMMENT '关联记录id',
-  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '查询类型:1=涉诉查询,2=征信查询',
+  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '查询类型:1=涉诉查询,2=征信查询,3=私借查询',
   `search_id` char(32) NOT NULL COMMENT '身份证/企业组织结构代码',
   `search_name` varchar(50) NOT NULL COMMENT '姓名/企业名称',
   `search_type` tinyint(1) NOT NULL COMMENT '目标类型:1=个人,2=企业',
@@ -4718,21 +4803,25 @@ CREATE TABLE `fa_record_search` (
   `money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '查询费用',
   `look_count` int(11) NOT NULL DEFAULT '0' COMMENT '查看次数',
   `search_result` tinyint(1) DEFAULT '0' COMMENT '查询结果:0=无,1=成功,2=失败',
+  `site` int(11) DEFAULT '0',
+  `commission` decimal(10,2) DEFAULT '0.00' COMMENT '佣金',
   PRIMARY KEY (`id`),
   KEY `relation_id` (`relation_id`),
   KEY `user_id` (`user_id`),
   KEY `type` (`type`),
   KEY `search_type` (`search_type`),
   KEY `createtime` (`createtime`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='查询记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='查询记录表';
 
 -- ----------------------------
 -- Records of fa_record_search
 -- ----------------------------
-INSERT INTO `fa_record_search` VALUES ('1', '3', '1', '1', '123456789987654321', '测试公司A', '1', '1699287119', '100.00', '0', '1');
-INSERT INTO `fa_record_search` VALUES ('2', '1', '1', '1', '123456789987654321', '测试公司A', '1', '1699348293', '100.00', '0', '0');
-INSERT INTO `fa_record_search` VALUES ('4', '3', '2', '1', '350681198902031015', '王晓辉', '1', '1699943078', '100.00', '0', '1');
-INSERT INTO `fa_record_search` VALUES ('6', '3', '4', '1', '35068119941023059', '阮传嗣', '1', '1701157728', '100.00', '0', '1');
+INSERT INTO `fa_record_search` VALUES ('1', '3', '1', '1', '123456789987654321', '测试公司A', '1', '1710287119', '100.00', '0', '1', '5', '12.00');
+INSERT INTO `fa_record_search` VALUES ('2', '1', '1', '1', '123456789987654321', '测试公司A', '1', '1699348293', '100.00', '0', '0', '5', '13.00');
+INSERT INTO `fa_record_search` VALUES ('4', '3', '2', '1', '350681198902031015', '王晓辉', '1', '1699943078', '100.00', '0', '1', '5', '43.00');
+INSERT INTO `fa_record_search` VALUES ('6', '3', '4', '1', '35068119941023059', '阮传嗣', '1', '1701157728', '100.00', '0', '1', '6', '45.00');
+INSERT INTO `fa_record_search` VALUES ('7', '46', '5', '1', '123456789987654321', '测试企业A', '1', '1709879728', '100.00', '0', '1', '0', '0.00');
+INSERT INTO `fa_record_search` VALUES ('8', '46', '6', '1', '123456789987654321', '测试企业A', '1', '1709879730', '100.00', '0', '1', '0', '0.00');
 
 -- ----------------------------
 -- Table structure for `fa_record_shesu`
@@ -4749,7 +4838,7 @@ CREATE TABLE `fa_record_shesu` (
   `createtime` bigint(20) NOT NULL COMMENT '查询时间',
   `updatetime` bigint(20) DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='涉诉记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='涉诉记录表';
 
 -- ----------------------------
 -- Records of fa_record_shesu
@@ -4757,6 +4846,8 @@ CREATE TABLE `fa_record_shesu` (
 INSERT INTO `fa_record_shesu` VALUES ('1', '1_1699348354670', '123456789987654321', '测试公司A', '1', '1', 'https://dianhuitech-dev.oss-cn-shenzhen.aliyuncs.com/pgyw/1699348357905-涉诉信息_测***A_1234**********4321.xls', '1699287119', '1699348355');
 INSERT INTO `fa_record_shesu` VALUES ('2', '3_1699943078172', '350681198902031015', '王晓辉', '1', '1', '', '1699943078', '1699943078');
 INSERT INTO `fa_record_shesu` VALUES ('4', '3_1701157726523', '35068119941023059', '阮传嗣', '1', '1', '', '1701157728', '1701157728');
+INSERT INTO `fa_record_shesu` VALUES ('5', '46_1709879727156', '123456789987654321', '测试企业A', '1', '1', '', '1709879728', '1709879728');
+INSERT INTO `fa_record_shesu` VALUES ('6', '46_1709879729265', '123456789987654321', '测试企业A', '1', '1', '', '1709879731', '1709879731');
 
 -- ----------------------------
 -- Table structure for `fa_record_shesu_api`
@@ -4772,13 +4863,15 @@ CREATE TABLE `fa_record_shesu_api` (
   `link` varchar(200) DEFAULT '' COMMENT '下载链接',
   `createtime` bigint(20) NOT NULL COMMENT '查询时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='涉诉记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='涉诉记录表';
 
 -- ----------------------------
 -- Records of fa_record_shesu_api
 -- ----------------------------
 INSERT INTO `fa_record_shesu_api` VALUES ('1', '3_1699943078172', '350681198902031015', '王晓辉', '1', '1', '', '1699943078');
 INSERT INTO `fa_record_shesu_api` VALUES ('3', '3_1701157726523', '35068119941023059', '阮传嗣', '1', '1', '', '1701157728');
+INSERT INTO `fa_record_shesu_api` VALUES ('4', '46_1709879727156', '123456789987654321', '测试企业A', '1', '1', '', '1709879728');
+INSERT INTO `fa_record_shesu_api` VALUES ('5', '46_1709879729265', '123456789987654321', '测试企业A', '1', '1', '', '1709879731');
 
 -- ----------------------------
 -- Table structure for `fa_sms`
@@ -4946,6 +5039,10 @@ CREATE TABLE `fa_user` (
   `is_multi` tinyint(1) DEFAULT '0' COMMENT '是否多点登录',
   `identity` char(20) DEFAULT '' COMMENT '用户认证身份',
   `site` int(10) DEFAULT '0' COMMENT '所属站点',
+  `company_name` varchar(40) DEFAULT '' COMMENT '企业名称',
+  `company_position` varchar(40) DEFAULT '' COMMENT '职位',
+  `company_business` varchar(200) DEFAULT '' COMMENT '主营业务',
+  `company_card` varchar(200) DEFAULT '' COMMENT '名片',
   PRIMARY KEY (`id`),
   KEY `mobile` (`mobile`),
   KEY `group_id` (`group_id`),
@@ -4956,8 +5053,8 @@ CREATE TABLE `fa_user` (
 -- ----------------------------
 -- Records of fa_user
 -- ----------------------------
-INSERT INTO `fa_user` VALUES ('1', '1', 'admin', '8b1fcdbfcc1a3559dfa60b42164ec0e3', 'b9OTyR', '13888888888', 'http://localhost/assets/img/avatar.png', '1', '1', '1491635035', '1699348227', '0.0.0.0', '0', '127.0.0.1', '1491635035', '0', '1699348227', '', 'normal', '', '222.00', '322.00', '0', ',1', '-1');
-INSERT INTO `fa_user` VALUES ('46', '0', '138****8889', '8b1fcdbfcc1a3559dfa60b42164ec0e3', 'b9OTyR', '13888888889', '', '1', '2', '1701157609', '1702570113', '0.0.0.0', '0', '0.0.0.0', '1699006130', '1699006130', '1709105076', '', 'normal', '', '600.00', '900.00', '1', '2,3', '-1');
+INSERT INTO `fa_user` VALUES ('1', '1', 'admin', '8b1fcdbfcc1a3559dfa60b42164ec0e3', 'b9OTyR', '13888888888', 'http://localhost/assets/img/avatar.png', '1', '1', '1491635035', '1699348227', '0.0.0.0', '0', '127.0.0.1', '1491635035', '0', '1699348227', '', 'normal', '', '222.00', '322.00', '0', ',1', '-1', '', '', '', '');
+INSERT INTO `fa_user` VALUES ('46', '0', '张三', '8b1fcdbfcc1a3559dfa60b42164ec0e3', 'b9OTyR', '13888888889', '', '1', '2', '1702570113', '1709879613', '0.0.0.0', '0', '0.0.0.0', '1699006130', '1699006130', '1710341902', '', 'normal', '', '300.00', '900.00', '1', '2,3', '1', '哈哈有限公司', '精力', '嘿嘿嘿\\我看见鹅湖', '1232324');
 
 -- ----------------------------
 -- Table structure for `fa_user_check`
@@ -4971,6 +5068,7 @@ CREATE TABLE `fa_user_check` (
   `name` varchar(20) NOT NULL DEFAULT '' COMMENT '姓名',
   `company_name` varchar(100) NOT NULL DEFAULT '' COMMENT '企业名称',
   `phone` varchar(20) NOT NULL DEFAULT '' COMMENT '联系电话',
+  `position` varchar(20) NOT NULL DEFAULT '' COMMENT '职位',
   `main_business` text NOT NULL COMMENT '主营业务',
   `createtime` bigint(20) NOT NULL DEFAULT '0' COMMENT '申请时间',
   `audit_result` tinyint(1) DEFAULT '0' COMMENT '认证状态:0=待认证,1=认证通过,2=认证不通过',
@@ -4979,12 +5077,13 @@ CREATE TABLE `fa_user_check` (
   `admin_id` int(11) DEFAULT '0' COMMENT '认证人',
   PRIMARY KEY (`id`),
   KEY `site` (`site`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='用户认证表';
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='用户认证表';
 
 -- ----------------------------
 -- Records of fa_user_check
 -- ----------------------------
-INSERT INTO `fa_user_check` VALUES ('1', '1', '0', '1', '张三', '张三科技', '13333333333', '双开是法抗啥', '0', '1', '', '1708679736', '1');
+INSERT INTO `fa_user_check` VALUES ('1', '1', '0', '1', '张三', '张三科技', '13333333333', '', '双开是法抗啥', '0', '0', 'drdrdre', '1710343887', '1');
+INSERT INTO `fa_user_check` VALUES ('2', '46', '1', '1', '在岗', '嘿嘿企业', '13522222222', '经理', '大炮制作', '1710345226', '0', '', '0', '0');
 
 -- ----------------------------
 -- Table structure for `fa_user_group`
@@ -5023,6 +5122,32 @@ INSERT INTO `fa_user_identity` VALUES ('2', '私借资方');
 INSERT INTO `fa_user_identity` VALUES ('3', '典当资方');
 INSERT INTO `fa_user_identity` VALUES ('4', '资深代办人');
 INSERT INTO `fa_user_identity` VALUES ('5', '银行人员');
+
+-- ----------------------------
+-- Table structure for `fa_user_message`
+-- ----------------------------
+DROP TABLE IF EXISTS `fa_user_message`;
+CREATE TABLE `fa_user_message` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT '0' COMMENT '用户ID',
+  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '类型:1=认证审核,2=评论,3=点赞',
+  `content` varchar(200) DEFAULT '' COMMENT '通知内容',
+  `item_id` int(11) DEFAULT '0' COMMENT '关联id',
+  `createtime` bigint(20) DEFAULT '0' COMMENT '创建时间',
+  `is_read` tinyint(1) DEFAULT '0' COMMENT '已读:1=已读,0=未读',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `createtime` (`createtime`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of fa_user_message
+-- ----------------------------
+INSERT INTO `fa_user_message` VALUES ('7', '0', '3', '张三点赞了您的帖子【<p>121313</p>】', '2', '1710342989', '0');
+INSERT INTO `fa_user_message` VALUES ('8', '46', '3', '张三点赞了您的帖子【】', '3', '1710343123', '0');
+INSERT INTO `fa_user_message` VALUES ('9', '1', '3', '张三评论了你:“34343434”<br/>【】', '3', '1710343137', '0');
+INSERT INTO `fa_user_message` VALUES ('10', '1', '1', '您好，您的【过桥资方】身份认证已通过！请后续遵循平台规则发帖。', '1', '1710343846', '0');
+INSERT INTO `fa_user_message` VALUES ('11', '1', '1', '您好，您的【过桥资方】身份认证未通过！原因: drdrdre', '1', '1710343887', '0');
 
 -- ----------------------------
 -- Table structure for `fa_user_money_log`
@@ -5145,7 +5270,7 @@ CREATE TABLE `fa_user_token` (
 -- ----------------------------
 -- Records of fa_user_token
 -- ----------------------------
-INSERT INTO `fa_user_token` VALUES ('68efe3e91d7e1224ff4bb03513ba50739c0dbfc9', '46', '1702570113', '1705162113');
+INSERT INTO `fa_user_token` VALUES ('d6a90519929c305632f7ce84f62c752d8e7d6b54', '46', '1709879613', '1712471613');
 
 -- ----------------------------
 -- Table structure for `fa_version`

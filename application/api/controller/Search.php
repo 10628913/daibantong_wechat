@@ -84,6 +84,7 @@ class Search extends Api
 
     /**
      * 判断查询是否收费
+     * @ApiInternal
      * @ApiMethod(POST)
      * @ApiParams  (name="search_id", type="string", required=true, description="身份证/企业组织结构代码") 
      * @ApiParams  (name="search_name", type="string", required=true, description="姓名/企业名称") 
@@ -158,14 +159,20 @@ class Search extends Api
         $needMoney = $siteConfig['shesu_money'];
 
 
-
+        $isNeedMoney = 1;
         $hasSearch = $searchDb->where($where)->find();
         $shesuRecord = null;
         if ($hasSearch) {
+            $isNeedMoney = 0;
             //有历史查询记录并且有查询结果
             $shesuRecord = $shesuDb->where('id', $hasSearch['relation_id'])->find();
             //如果有记录且不超30天,直接返回
             if (time() - $shesuRecord['updatetime'] <= 2592000) {
+                // if ($user['amount'] < $needMoney) {
+                //     $this->error('余额不足,请先进行充值!');
+                // }
+                // $this->deductExpenses($user, $needMoney);
+                // $searchDb->insert(array_merge($where, ['money' => $needMoney, 'relation_id' => $shesuRecord['id'], 'createtime' => time(), 'search_result' => 1]));
                 $this->success('查询成功', $shesuRecord['link']);
             }
         } else {
@@ -211,14 +218,12 @@ class Search extends Api
             }
         }
         /***************** 处理无查询记录或有记录但超过30天 *********************/
-        //判断是否需要扣费
-        $isNeedMoney = 0;
-        if (!$hasSearch) {
-            $isNeedMoney = 1;
+        if ($isNeedMoney) {
             if ($user['amount'] < $needMoney) {
                 $this->error('余额不足,请先进行充值!');
             }
         }
+
 
         //请求编号
         $requestNo = $user['id'] . '_' . $this->getMillisecond();
@@ -266,13 +271,11 @@ class Search extends Api
 
         try {
 
-            $searchRecordId = 0;
-            //如果不存在用户查询记录,插入记录
-            if (!$hasSearch) {
-                $searchRecordId = $searchDb->insertGetId(array_merge($where, ['money' => $needMoney, 'createtime' => time(), 'search_result' => 1]));
+            $searchRecordId = $searchDb->insertGetId(array_merge($where, ['money' => $needMoney, 'createtime' => time(), 'search_result' => 1]));
+            if ($isNeedMoney) {
+                $this->deductExpenses($user, $needMoney);
             }
-
-
+            
             //处理涉诉记录
             $shesuRecordId = $shesuRecord ? $shesuRecord['id'] : 0;
             if ($shesuRecordId) {
@@ -297,10 +300,6 @@ class Search extends Api
             }
             //记录关联
             $searchDb->where('id', $searchRecordId)->update(['relation_id' => $shesuRecordId]);
-            //扣款
-            if ($isNeedMoney) {
-                Db::name('user')->where('id', $user['id'])->setDec('amount', $needMoney);
-            }
             if (!$noShesuRecord) {
                 //获取excel
                 $excelResult = $this->getShesuExcel($requestNo);
@@ -309,6 +308,7 @@ class Search extends Api
                     $shesuDb->where('id', $shesuRecordId)->update(['link' => $excelResult['result']]);
                 }
             }
+
 
             Db::commit();
         } catch (Exception $e) {
@@ -322,6 +322,65 @@ class Search extends Api
             $this->error('获取涉诉记录表格失败!请稍后再试!');
         }
         $this->success('获取成功!', $searchResult);
+    }
+
+    /**
+     * 私借查询
+     * @ApiMethod(POST)
+     * @ApiParams  (name="search_id", type="string", required=true, description="身份证/企业组织结构代码") 
+     * @ApiParams  (name="search_name", type="string", required=true, description="姓名/企业名称") 
+     * @ApiParams  (name="search_type", type="int", required=true, description="目标类型:1=个人,2=企业") 
+     */
+    public function querySijie()
+    {
+        if (!$this->request->isPost()) return;
+
+        $searchId = input('search_id');
+        $searchName = input('search_name');
+        $sarchType = input('search_type');
+        if (!$searchId || !$searchName || !$sarchType || !in_array($sarchType, ['1', '2'])) $this->error('参数错误!');
+        $user = $this->auth->getUserinfo();
+        if(!$user['identity']){
+            $this->error('无权限!');
+        }
+
+        $searchDb = Db::name('record_search');
+
+        if ($sarchType == 1 && strlen($searchId) != 18) $this->error('请输入正确的身份证号码!');
+
+        $where = [
+            'type' => 1,
+            'search_id' => $searchId,
+            'search_name' => $searchName,
+            'search_type' => $sarchType,
+        ];
+
+
+
+        $siteConfig = Config::get("site");
+        $needMoney = $siteConfig['sijie_money'];
+
+        if ($user['amount'] < $needMoney) {
+            $this->error('余额不足!');
+        }
+
+        $this->deductExpenses($user, $needMoney);
+        $count = $searchDb->where($where)->count();
+        if ($count > 0) {
+            $rows = $searchDb->where($where)->column('FROM_UNIXTIME(createtime)');
+            $this->success(['total_count' => $count, 'data' => $rows]);
+        } else {
+            $this->error('暂无相关查询记录!');
+        }
+    }
+
+
+    /**
+     * 扣除金额
+     */
+    private function deductExpenses($user = [], $money = 0)
+    {
+        Db::name('user')->where('id', $user['id'])->setDec('amount', $money);
     }
 
     /**

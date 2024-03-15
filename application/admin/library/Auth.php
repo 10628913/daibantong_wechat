@@ -62,6 +62,11 @@ class Auth extends \fast\Auth
         $admin->loginip = request()->ip();
         $admin->token = Random::uuid();
         $admin->save();
+        $admin->site_name = '';
+        if($admin->site){
+            $site = \think\Db::name('city_site')->where('id',$admin->site)->find();
+            $admin->site_name = $site && $site['name'] ? $site['name'] : '';
+        }
         Session::set("admin", $admin->toArray());
         Session::set("admin.safecode", $this->getEncryptSafecode($admin));
         $this->keeplogin($admin, $keeptime);

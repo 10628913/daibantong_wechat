@@ -45,8 +45,8 @@ class Posts extends Backend
         $this->view->assign('sites', $siteList);
         $this->assignconfig('siteObj',json_decode(json_encode($siteList)));
 
-        if ($this->auth->site && $this->auth->site > 0) {
-            $this->siteWhere = ['site' => $this->auth->area_id];
+        if ($this->auth->site) {
+            $this->siteWhere = ['site' => $this->auth->site];
         }
 
     }

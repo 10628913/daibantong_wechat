@@ -30,7 +30,8 @@
         "ext-curl": "*",
         "ext-pdo": "*",
         "ext-bcmath": "*",
-        "txthinking/mailer": "^2.0"
+        "txthinking/mailer": "^2.0",
+        "topthink/think-image": "^1.0"
     },
     "config": {
         "preferred-install": "dist",

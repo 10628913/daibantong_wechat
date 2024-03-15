@@ -40,7 +40,9 @@ class Site extends Model
     
 
 
-
+    public function admin(){
+        return $this->hasOne('admin','id','admin_id')->field('id,username,nickname');
+    }
 
 
 

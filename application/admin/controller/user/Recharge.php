@@ -47,7 +47,7 @@ class Recharge extends Backend
         [$where, $sort, $order, $offset, $limit] = $this->buildparams();
         $list = $this->model
             ->where($where)
-            ->where(['user_id' => $ids, 'pay_result' => 1])
+            ->where(['user_id' => $ids, 'pay_result' => 1, 'flag' => 1])
             ->order($sort, $order)
             ->paginate($limit);
         foreach ($list as &$v) {

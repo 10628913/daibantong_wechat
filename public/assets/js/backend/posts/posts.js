@@ -41,12 +41,19 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         { field: 'cid', title: __('Cid'), searchList: { "0": __('Cid 0'), "1": __('Cid 1'), "2": __('Cid 2'), "3": __('Cid 3'), "4": __('Cid 4') }, formatter: Table.api.formatter.label },
                         { field: 'post_type', title: __('Post_type'), formatter: Table.api.formatter.label, searchList: Config.typelistObj, operate: 'FIND_IN_SET', cellStyle: Controller.api.formatter.css, addClass: 'selectpicker', data: 'data-live-search="true"' },
                         { field: 'site', title: __('Site'), formatter: Table.api.formatter.label, searchList: Config.siteObj, operate: '=', cellStyle: Controller.api.formatter.css, addClass: 'selectpicker', data: 'data-live-search="true"' },
+                        // {
+                        //     field: 'title', title: __('Title'), operate: 'LIKE', formatter: function (v, row, i) {
+                        //         return v.length > 20 ? v.substring(0, 19) + '...' : v;
+                        //     }
+                        // },
                         {
-                            field: 'title', title: __('Title'), operate: 'LIKE', formatter: function (v, row, i) {
+                            field: 'content', title: __('Content'), operate: 'LIKE', formatter: function (v, row, i) {
+                                if(!v){
+                                    return '';
+                                }
                                 return v.length > 20 ? v.substring(0, 19) + '...' : v;
                             }
                         },
-                        { field: 'content', title: __('Content'), operate: 'LIKE', visible: false },
                         { field: 'is_recommend', title: __('Is_recommend'), searchList: { "1": __('Is_recommend 1'), "0": __('Is_recommend 0') }, formatter: Table.api.formatter.label },
                         { field: 'recommend_start_time', title: __('Recommend_start_time'), operate: 'RANGE', addclass: 'datetimerange', autocomplete: false, formatter: Table.api.formatter.datetime },
                         { field: 'recommend_end_time', title: __('Recommend_end_time'), operate: 'RANGE', addclass: 'datetimerange', autocomplete: false, formatter: Table.api.formatter.datetime },

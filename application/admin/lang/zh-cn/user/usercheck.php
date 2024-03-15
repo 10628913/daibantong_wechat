@@ -12,6 +12,7 @@ return [
     'Company_name'  => '企业名称',
     'Phone'         => '联系电话',
     'Main_business' => '主营业务',
+    'Position' => '职位',
     'Createtime'    => '申请时间',
     'Audit_result'   => '认证状态',
     'Audit_result 0' => '待认证',

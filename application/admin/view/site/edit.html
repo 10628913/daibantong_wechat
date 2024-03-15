@@ -6,6 +6,16 @@
             <input id="c-name" class="form-control" name="row[name]" type="text" value="{$row.name|htmlentities}">
         </div>
     </div>
+    <div class="form-group" >
+        <label class="control-label col-xs-12 col-sm-2">站长:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-admin_id" class="form-control selectpicker" name="row[admin_id]" title="点击选择站长"  data-live-search="true">
+                {foreach name="adminList" item="v"}
+                <option value="{$v.id}" {eq name="v.id" value="$row.admin_id" }selected{/eq}>{$v.name}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Weigh')}:</label>
         <div class="col-xs-12 col-sm-8">

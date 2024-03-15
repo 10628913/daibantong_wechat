@@ -56,15 +56,21 @@ class Pay extends Api
         $row = Db::name('record_recharge')->insertGetId($orderData);
         if ($row) {
             $params = [
-                'type'         => 'alipay',
+                'openid' => Service::getWechatMiniOpenid(),
+                'type' => 'wechat',
                 'orderid' => $orderNo,
-                'title'        => '余额充值',
-                'amount'       => $amount,
-                'method'       => 'app',
-                'notifyurl'    => request()->root(true) . '/api/pay/notifyx/paytype/alipay',
-                'returnurl'    => request()->root(true) . '/result.html?out_trade_no=' . $orderNo,
+                'title' => '余额充值',
+                'amount' => $amount,
+                'method' => 'miniapp',
+                'notifyurl' => request()->root(true) . '/api/pay/notifyx/paytype/wechat',
+                'returnurl' => request()->root(true) . '/result.html?out_trade_no=' . $orderNo,
             ];
-            $this->success('下单成功', ['order_no' => $orderNo, 'pay_content' => Service::submitOrder($params)]);
+            Log::write($params);
+            $reqResult = Service::submitOrder($params);
+            Log::write('支付开始');
+            Log::write($reqResult);
+            Log::write('支付结束');
+            $this->success('请求成功', ['order_no' => $orderNo, 'pay_content' => $reqResult]);
         }
         $this->error('下单失败!');
     }
@@ -119,6 +125,40 @@ class Pay extends Api
 
         Db::startTrans();
         try {
+            if ($paytype == 'wechat') {
+                if (Service::isVersionV3()) {
+                    $data = $data['resource']['ciphertext'];
+                    $data['total_fee'] = $data['amount']['total'] / 100;
+                }
+                $out_trade_no = $data['out_trade_no'];
+                $trade_state = $data['result_code'];
+                $orderDb = Db::name('order');
+                $user_db = Db::name('user');
+                $record_recharge_db = Db::name('record_recharge');
+                $order = $orderDb->where(['order_sn' => $out_trade_no])->find();
+                if ($order && $order['pay_result'] == 0) {
+                    $user = $user_db->where('id', $order['user_id'])->find();
+                    if (!$user) return;
+                    $userData = [
+                        'amount' => bcadd($user['amount'], $order['money'], 2),
+                        'recharge_amount' => bcadd($user['recharge_amount'], $order['money'], 2),
+                    ];
+                    $rechargeData = [
+                        'id' => $order['id'],
+                        'pay_no' => $data['transaction_id'],
+                        'pay_result' => $trade_state == 'SUCCESS' ? '1' : '2',
+                        'pay_time' => time(),
+                        'before' => $user['amount'],
+                        'after' => $userData['amount'],
+                        'site' => $user['site']
+                    ];
+
+                    if ($record_recharge_db->update($rechargeData)) {
+                        $user_db->where(['id' => $user['id']])->update($userData);
+                    }
+                    Db::commit();
+                }
+            }
             if ($paytype == 'alipay') {
                 $out_trade_no = $data['out_trade_no'];
                 $trade_state = $data['trade_status'];
@@ -139,7 +179,8 @@ class Pay extends Api
                         'pay_result' => $trade_state == 'TRADE_SUCCESS' ? '1' : '2',
                         'pay_time' => strtotime($data['notify_time']),
                         'before' => $user['amount'],
-                        'after' => $userData['amount']
+                        'after' => $userData['amount'],
+                        'site' => $user['site']
                     ];
 
                     if ($record_recharge_db->update($rechargeData)) {

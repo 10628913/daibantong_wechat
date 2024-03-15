@@ -59,7 +59,7 @@ class Search extends Model
 
     public function user()
     {
-        return $this->hasOne('User','id','user_id')->field('mobile,nickname');
+        return $this->hasOne('User','id','user_id')->field('id,mobile,nickname');
     }
 
 

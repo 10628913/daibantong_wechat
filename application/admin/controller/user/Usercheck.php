@@ -33,8 +33,8 @@ class Usercheck extends Backend
         $this->view->assign("identityList", $this->model->getIdentityList());
         $this->view->assign("authResultList", $this->model->getAuthResultList());
 
-        if ($this->auth->site && $this->auth->site > 0) {
-            $this->siteWhere = ['site' => $this->auth->area_id];
+        if ($this->auth->site) {
+            $this->siteWhere = ['site' => $this->auth->site];
         }
     }
 
@@ -105,6 +105,7 @@ class Usercheck extends Backend
             if ($this->model->update($auditData)) {
                 //生成用户通知
                 $content = '';
+                $identityName = Db::name('user_identity')->where('id', $row['identity'])->value('name');
                 if ($auditData['audit_result'] == 1) {
                     $userDb = Db::name('user');
                     $user = $userDb->where('id', $row['user_id'])->find();
@@ -120,15 +121,16 @@ class Usercheck extends Backend
                             $userDb->update(['id' => $user['id'], 'identity' => implode(',', $identity)]);
                         }
                     }
-                    $content = '您的认证已审核通过';
+                    $content = '您好，您的【' . $identityName . '】身份认证已通过！请后续遵循平台规则发帖。';
                 } else {
-                    $content = '您的认证审核不通过(' . $auditData['audit_remark'] . ')';
+                    $content = '您好，您的【' . $identityName . '】身份认证未通过！原因: ' . $auditData['audit_remark'];
                 }
-                Db::name('user_notification')->insert([
+
+                Db::name('user_message')->insert([
                     'user_id' => $row['user_id'],
-                    'notification_type' => 1,
+                    'type' => 1,
+                    'content' => $content,
                     'item_id' => $row['id'],
-                    'notification_content' => $content,
                     'createtime' => time()
                 ]);
                 Db::commit();
